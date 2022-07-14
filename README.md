@@ -9,6 +9,7 @@ Project gồm có các chức năng
 2. Hiển thị các thẻ bài
 3. Lưu trữ các thẻ bài yêu thích vào trong kho lưu trữ nội bộ
 4. Tải ảnh về kho lưu trữ( Iphone/Android Phone)
+5. Chọn ngôn ngữ( Tiếng Anh, Tiếng Việt)
 
 ### III. Các thư viện sử dụng
 Project sử dụng Flutter theo kiến trúc Bloc, Sqflite để lưu trữ, call API bằng Dio
