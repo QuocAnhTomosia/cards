@@ -12,3 +12,5 @@ Project gồm có các chức năng
 
 ### III. Các thư viện sử dụng
 Project sử dụng Flutter theo kiến trúc Bloc, Sqflite để lưu trữ, call API bằng Dio
+
+Project API: <a href="https://db.ygoprodeck.com/api-guide/">YuGiOh Database</a>
