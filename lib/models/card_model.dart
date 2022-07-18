@@ -22,15 +22,29 @@ class YugiOhCard {
     required this.card_prices,
   });
 
-  factory YugiOhCard.fromJson(Map<String, dynamic> json) {
+  factory YugiOhCard.fromJsonApi(Map<String, dynamic> json) {
     return YugiOhCard(
-        id: json["id"],
-        name: json["name"],
-        type: json["type"],
-        desc: json["desc"],
-        race: json["race"],
-        image_url: json["card_images"][0]["image_url"],
-        attribute: json["attribute"] ?? "No Atrribute",
-        card_prices: json["card_prices"][0]["cardmarket_price"],);
+      id: json["id"],
+      name: json["name"],
+      type: json["type"],
+      desc: json["desc"],
+      race: json["race"],
+      image_url: json["card_images"][0]["image_url"],
+      attribute: json["attribute"] ?? "No Atrribute",
+      card_prices: json["card_prices"][0]["cardmarket_price"],
+    );
+  }
+
+  Map<String, Object?> toMap() {
+    return {
+      "id": id,
+      "name": name,
+      "type": type,
+      "desc": desc,
+      "race": race,
+      "image_url": image_url,
+      "attribute": attribute,
+      "card_prices": card_prices
+    };
   }
 }

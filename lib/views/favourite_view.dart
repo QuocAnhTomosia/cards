@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:yugi_oh_cards/models/card_model.dart';
+
 
 class FavoriteWidget extends StatelessWidget {
 
@@ -10,7 +10,7 @@ class FavoriteWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
+    return Column(children: const [
 
     ],);
   }

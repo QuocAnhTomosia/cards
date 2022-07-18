@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yugi_oh_cards/bloc/cards_searching_bloc.dart';
 import 'package:yugi_oh_cards/commons/card_display.dart';
-import 'package:yugi_oh_cards/models/card_model.dart';
-import 'package:yugi_oh_cards/services/cards_api_services.dart';
 import 'package:yugi_oh_cards/views/favourite_view.dart';
 
 class SearchView extends StatefulWidget {
@@ -14,7 +14,7 @@ class SearchView extends StatefulWidget {
 class _SearchViewState extends State<SearchView> {
   int _selectedIndex = 0;
   final List<Widget> _widgetOptions = [
-    const SearchWidget(),
+    SearchWidget(),
     const FavoriteWidget(),
   ];
   void _onItemTapped(int index) {
@@ -25,7 +25,6 @@ class _SearchViewState extends State<SearchView> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedIndex,
@@ -38,14 +37,6 @@ class _SearchViewState extends State<SearchView> {
           ]),
       appBar: AppBar(),
       body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/background.jpg"),
-            fit: BoxFit.cover,
-                            colorFilter: ColorFilter.mode(Colors.black, BlendMode.dstATop),
-
-          ),
-        ),
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
     );
@@ -53,7 +44,8 @@ class _SearchViewState extends State<SearchView> {
 }
 
 class SearchWidget extends StatelessWidget {
-  const SearchWidget({Key? key}) : super(key: key);
+  SearchWidget({Key? key}) : super(key: key);
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -63,36 +55,55 @@ class SearchWidget extends StatelessWidget {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: TextFormField(
-            textAlign: TextAlign.center,
-            enableInteractiveSelection: false,
-            obscureText: false,
-            decoration: const InputDecoration(
-              hintText: 'Enter your card name',
-              border: UnderlineInputBorder(),
+          child: BlocListener<CardsSearchingBloc, CardsSearchingState>(
+            listener: (context, state) {
+              if (state is CardSearchingStarted) {
+              } else if (state is CardSearchingLoading) {
+              } else if (state is CardSearchingLoaded) {}
+            },
+            child: TextFormField(
+              controller: _controller,
+              textAlign: TextAlign.center,
+              enableInteractiveSelection: false,
+              obscureText: false,
+              decoration: const InputDecoration(
+                hintText: 'Enter your card name',
+                border: UnderlineInputBorder(),
+              ),
             ),
           ),
         ),
-        FutureBuilder(
-            future: CardApi().fetchData(name: "Mirror Force"),
-            builder: (context, AsyncSnapshot<List<YugiOhCard>> snapshot) {
-              if (snapshot.hasError) {
-                return const Text("not match the card you found");
-              } else if (!snapshot.hasData) {
-                return const Text("not match the card you found");
-              } else {
-                return SizedBox(
-                  height: size.height * 0.7,
-                  width: size.width,
-                  child: ListView.builder(
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, int index) => Padding(
-                            padding: const EdgeInsets.only(top: 20),
-                            child: CardDisplay(card: snapshot.data![index]),
-                          )),
-                );
-              }
-            }),
+        ElevatedButton(
+            onPressed: () {
+              context
+                  .read<CardsSearchingBloc>()
+                  .add(CardSearchingSubmit(name: _controller.text));
+            },
+            child: const Text("Submit")),
+        Expanded(
+          child: BlocBuilder<CardsSearchingBloc, CardsSearchingState>(
+              builder: (context, state) {
+            if (state is CardSearchingError) {
+              return const Text("not match the card you found");
+            } else if (state is CardSearchingLoading) {
+              return Center(child: const CircularProgressIndicator());
+            } else if (state is CardSearchingLoaded) {
+              return SizedBox(
+                height: size.height * 0.7,
+                width: size.width,
+                child: ListView.builder(
+                  addAutomaticKeepAlives: false,
+                    itemCount: state.data.length,
+                    itemBuilder: (context, int index) => Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: CardDisplay(card: state.data[index]),
+                        )),
+              );
+            } else {
+              return const Text("Hello");
+            }
+          }),
+        ),
       ],
     );
   }
