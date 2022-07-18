@@ -1,16 +1,17 @@
-# yugi_oh_cards
+# YuGiOhCard
 
-A new Flutter project.
+## I.Description
+Project làm về lưu trữ và hiển thị hình ảnh các thẻ bài từ API lấy từ server
 
-## Getting Started
+## II. Chức năng
+Project gồm có các chức năng
+1. Tìm kiếm các thẻ bài theo tên( call API)
+2. Hiển thị các thẻ bài
+3. Lưu trữ các thẻ bài yêu thích vào trong kho lưu trữ nội bộ
+4. Tải ảnh về kho lưu trữ( Iphone/Android Phone)
+5. Chọn ngôn ngữ( Tiếng Anh, Tiếng Việt)
+6. Màn hình khởi động app 
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### III. Các thư viện sử dụng
+Project sử dụng Flutter theo kiến trúc Bloc, Sqflite để lưu trữ, call API bằng Dio
+Project API: <a href="https://db.ygoprodeck.com/api-guide/">YuGiOh Database</a>
