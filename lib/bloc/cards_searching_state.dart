@@ -23,8 +23,12 @@ class CardSearchingLoading extends CardsSearchingState {
   @override
   List<Object> get props => [];
 }
- class CardSearchingError extends CardsSearchingState
- {
-   @override
-  List<Object> get props => [];
- }
+
+class CardSearchingError extends CardsSearchingState {
+  final String respone ;
+  const CardSearchingError({
+    required this.respone,
+  });
+  @override
+  List<Object> get props => [respone];
+}
