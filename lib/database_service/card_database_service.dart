@@ -33,9 +33,6 @@ CREATE TABLE cards(
       TEXT image_url,
       TEXT attribute,
       TEXT card_prices);
-CREATE TABLE favorite(
-  id INTERGER
-)
     ''');
   }
 

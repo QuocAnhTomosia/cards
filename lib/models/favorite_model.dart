@@ -1,5 +1,9 @@
 class Favorite {
+  int userId;
   List<int> _favorites = [];
+  Favorite({
+    required this.userId,
+  });
 
   void add(int data) {
     _favorites.add(data);

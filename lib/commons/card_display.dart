@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:yugi_oh_cards/models/card_model.dart';
 
@@ -14,15 +15,30 @@ class CardDisplay extends StatelessWidget {
           thickness: 1,
           color: Colors.black,
         ),
-        ClipRRect(
-          child: SizedBox(
-            width: size.width * 0.7,
-            height: size.width * 0.7 * 1.4,
-            child: Image.network(
-              card.image_url,
-              fit: BoxFit.fill,
-            ),
-          ),
+        OpenContainer(
+          closedBuilder: (context, action) => (
+            SizedBox(
+              width: size.width * 0.7,
+              height: size.width * 0.7 * 1.4,
+              child: Image.network(
+                card.image_url,
+                fit: BoxFit.fill,
+              ),
+            )
+          ), openBuilder: (BuildContext context, void Function({Object? returnValue}) action) { 
+            return Scaffold(appBar: AppBar(title: Text(card.name)),
+            body: Center(
+              child: Column(children: [SizedBox(
+                width: size.width * 0.7,
+                height: size.width * 0.7 * 1.4,
+                child: Image.network(
+                  card.image_url,
+                  fit: BoxFit.fill,
+                ),
+              ),
+              SizedBox(width: size.width * 0.7,child: Text(card.desc),)]),
+            ),);
+           },
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
