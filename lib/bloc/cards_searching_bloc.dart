@@ -17,15 +17,16 @@ class CardsSearchingBloc
       emit(CardSearchingLoading());
     });
     on<CardSearchingSubmit>((event, emit) async {
-      if (state is CardSearchingLoaded || state is CardsSearchingInitial || state is CardSearchingError) {
-        try {
-          emit(CardSearchingLoading());
-          final data = await CardApi().fetchData(event.name);
-          print(event.name);
-          emit(CardSearchingLoaded(data: data));
-        } catch (_) {
-          emit(CardSearchingError());
+      if (state != CardSearchingLoading) {
+        emit(CardSearchingLoading());
+        final data = await CardApi().fetchData(event.name);
+        if (data.list.length !=0) {
+          print(data.list);
+          emit(CardSearchingLoaded(data: data.list));
+        } else {
+          emit(CardSearchingError(respone: data.error));
         }
+        
       }
     });
   }
