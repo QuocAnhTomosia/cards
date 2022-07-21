@@ -1,8 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:yugi_oh_cards/providers/lang_provider.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({Key? key}) : super(key: key);
@@ -50,7 +48,7 @@ class SettingsView extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: () {
-                            context.setLocale(Locale("en"));
+                            context.setLocale(const Locale("en"));
                             // context.read<LangCubitCubit>().updateEn();
                           },
                           child: SizedBox(

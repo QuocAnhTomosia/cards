@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 
 import 'package:yugi_oh_cards/models/card_model.dart';
 
@@ -34,9 +33,9 @@ class BuyCard extends StatelessWidget {
               Text(card.card_prices),
               Row(
                 children: [
-                  IconButton(onPressed: () {}, icon: Icon(Icons.add)),
-                  Text("0"),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.add))
+                  IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
+                  const Text("0"),
+                  IconButton(onPressed: () {}, icon: const Icon(Icons.add))
                 ],
               )
             ],

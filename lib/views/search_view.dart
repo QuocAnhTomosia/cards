@@ -51,8 +51,8 @@ class _SearchViewState extends State<SearchView> {
                 icon: const Icon(Icons.favorite), label: tr("favorite")),
             // BottomNavigationBarItem(
             // icon: const Icon(Icons.shopping_bag), label: "shopping"),
-            BottomNavigationBarItem(
-                icon: const Icon(Icons.shopping_bag), label: "shopping"),
+            const BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_bag), label: "shopping"),
           ]),
       appBar: AppBar(
         actions: [
@@ -121,7 +121,6 @@ class SearchWidget extends StatelessWidget {
                 ],
               );
             } else if (state is CardSearchingLoading) {
-              print("loading");
               return const SpinKitFadingCircle(
                 color: Colors.blue,
                 size: 50.0,

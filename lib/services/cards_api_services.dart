@@ -32,9 +32,8 @@ class CardApi {
           sendTimeout: 10000,
         );
         final Response response = await Dio(options).get(
-          "fname=$name" + (language == "en" ? "" : "&language=$language"),
+          "fname=$name${language == "en" ? "" : "&language=$language"}",
         );
-        print(response.data);
         response.data["data"]
             .forEach((element) => cards.add(YugiOhCard.fromJsonApi(element)));
         return DataResponse(cards, "no error");
