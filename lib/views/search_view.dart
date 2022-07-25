@@ -1,78 +1,14 @@
+
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:yugi_oh_cards/bloc/cards_searching_bloc.dart';
 import 'package:yugi_oh_cards/commons/card_display.dart';
-import 'package:yugi_oh_cards/views/favourite_view.dart';
-import 'package:yugi_oh_cards/views/shopping_view.dart';
 
-class SearchView extends StatefulWidget {
-  const SearchView({Key? key}) : super(key: key);
-
-  @override
-  State<SearchView> createState() => _SearchViewState();
-}
-
-class _SearchViewState extends State<SearchView> {
-  int _selectedIndex = 0;
-  bool isSwitched = false;
-  final List<Widget> _widgetOptions = [
-    SearchWidget(),
-    FavoriteWidget(),
-    ShoppingView(),
-    //SettingsView(),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final List<String> _tittleOptions = [
-      tr("search_title"),
-      tr("favorite"),
-      "shopping",
-    ];
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.amber[800],
-          onTap: _onItemTapped,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.search),
-              label: tr("search_icon"),
-            ),
-            BottomNavigationBarItem(
-                icon: const Icon(Icons.favorite), label: tr("favorite")),
-            // BottomNavigationBarItem(
-            // icon: const Icon(Icons.shopping_bag), label: "shopping"),
-            const BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_bag), label: "shopping"),
-          ]),
-      appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, "/settings");
-              },
-              icon: Icon(Icons.settings))
-        ],
-        title: Text(_tittleOptions.elementAt(_selectedIndex)),
-      ),
-      body: Container(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-    );
-  }
-}
-
-class SearchWidget extends StatelessWidget {
-  SearchWidget({Key? key}) : super(key: key);
+class SearchWiew extends StatelessWidget {
+  SearchWiew({Key? key}) : super(key: key);
   final TextEditingController _controller = TextEditingController();
 
   @override

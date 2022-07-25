@@ -15,10 +15,19 @@ class CardApi {
 
     if (name == "") {
       try {
-        final Response response = await Dio().get(
-          "https://db.ygoprodeck.com/api/v7/randomcard.php",
+       var options = BaseOptions(
+        baseUrl: "https://db.ygoprodeck.com/api/v7/randomcard.php",
+          receiveTimeout: 10000, //
+          connectTimeout: 10000,
+          sendTimeout: 10000,
         );
-        cards.add(YugiOhCard.fromJsonApi(response.data));
+        final Response response = await Dio(options).get(
+          '',
+        );
+        if(response.data != {})
+        {
+          cards.add(YugiOhCard.fromJsonApi(response.data));
+        }
         return DataResponse(cards, "no error");
       } on DioError catch (e) {
         return DataResponse([], handleDioError(e));
@@ -27,15 +36,17 @@ class CardApi {
       try {
         var options = BaseOptions(
           baseUrl: "https://db.ygoprodeck.com/api/v7/cardinfo.php?",
-          receiveTimeout: 10000, // 15 seconds
+          receiveTimeout: 10000, //
           connectTimeout: 10000,
           sendTimeout: 10000,
         );
         final Response response = await Dio(options).get(
           "fname=$name${language == "en" ? "" : "&language=$language"}",
         );
-        response.data["data"]
+        if(response.data["data"] != []){
+          response.data["data"]
             .forEach((element) => cards.add(YugiOhCard.fromJsonApi(element)));
+        }
         return DataResponse(cards, "no error");
       } on DioError catch (e) {
         return DataResponse([], handleDioError(e));

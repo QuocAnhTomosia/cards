@@ -16,6 +16,7 @@ class ShoppingView extends StatelessWidget {
           return const Text('snapshots dont have data');
         } else if (snapshot.hasData) {
           return ListView.builder(
+            itemCount: snapshot.data!.list.length,
               itemBuilder: (BuildContext context, int index) {
             return BuyCard(card: snapshot.data!.list[index]);
           });

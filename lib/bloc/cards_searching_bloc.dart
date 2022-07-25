@@ -24,7 +24,7 @@ class CardsSearchingBloc
         emit(CardSearchingLoading());
         final data = await CardApi().fetchData(event.name,event.language);
         if (data.list.isNotEmpty) {
-          print(data.list);
+
           emit(CardSearchingLoaded(data: data.list));
         } else {
           emit(CardSearchingError(respone: data.error));

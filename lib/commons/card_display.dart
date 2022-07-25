@@ -41,10 +41,9 @@ class CardDisplay extends StatelessWidget {
                   SizedBox(
                     width: size.width,
                     child: Container(
-                      decoration: BoxDecoration(
-    border: Border.all(color: Colors.blueAccent)
-  ),
-                      child: Text("Description: ${card.desc}")),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.blueAccent)),
+                        child: Text("Description: ${card.desc}")),
                   ),
                   SizedBox(
                     child: Text("Price: ${card.card_prices}"),
