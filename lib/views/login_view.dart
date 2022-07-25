@@ -24,6 +24,12 @@ class LoginView extends StatelessWidget {
             hintText: "Enter your password",
             passwordController: _passwordController,
           ),
+          InkWell(
+            child: const Text("Sign up"),
+            onTap: () {
+              Navigator.of(context).pushNamed('/sign-up');
+            },
+          ),
           ElevatedButton(
               onPressed: () async {
                 try {

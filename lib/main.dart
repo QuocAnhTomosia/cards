@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yugi_oh_cards/cubit/pass_visible_cubit.dart';
-import 'package:yugi_oh_cards/routes/route_names.dart'; 
+import 'package:yugi_oh_cards/routes/route_names.dart';
 
 import 'bloc/cards_searching_bloc.dart';
 
@@ -41,7 +41,7 @@ class YugiOh extends StatelessWidget {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         debugShowCheckedModeBanner: false,
-        initialRoute: '/sign_up',
+        initialRoute: '/start_view',
         routes: NamedRouter.routes,
       ),
     );
