@@ -21,24 +21,20 @@ class LoginView extends StatelessWidget {
             controller: _emailController,
           ),
           PassWordWidget(
-            hintText: "Enter your password",passwordController: _passwordController,
+            hintText: "Enter your password",
+            passwordController: _passwordController,
           ),
-          ElevatedButton(onPressed: () async {
-            try {
-  UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-    email: _emailController.text,
-    password: _passwordController.text,
-  );
-  Navigator.of(context).pushNamedAndRemoveUntil(
-              '/home_page', (Route<dynamic> route) => false);
-} on FirebaseAuthException catch (e) {
-  if (e.code == 'user-not-found') {
-    
-  } else if (e.code == 'wrong-password') {
-    
-  }
-}
-          }, child: Text(tr("submit"))),
+          ElevatedButton(
+              onPressed: () async {
+                try {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      '/home_page', (Route<dynamic> route) => false);
+                } on FirebaseAuthException catch (e) {
+                  if (e.code == 'user-not-found') {
+                  } else if (e.code == 'wrong-password') {}
+                }
+              },
+              child: Text(tr("submit"))),
         ],
       ),
     );

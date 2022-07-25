@@ -41,7 +41,7 @@ class YugiOh extends StatelessWidget {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         debugShowCheckedModeBanner: false,
-        initialRoute: '/login',
+        initialRoute: '/sign_up',
         routes: NamedRouter.routes,
       ),
     );

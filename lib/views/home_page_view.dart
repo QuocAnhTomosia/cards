@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:yugi_oh_cards/views/cards_buy_view.dart';
 import 'package:yugi_oh_cards/views/favourite_view.dart';
 import 'package:yugi_oh_cards/views/search_view.dart';
 import 'package:yugi_oh_cards/views/shopping_view.dart';
 
+// Khong modify constant de cho easy localize rebuild
 class HomePageview extends StatefulWidget {
   const HomePageview({Key? key}) : super(key: key);
 
@@ -15,6 +17,7 @@ class _HomePageviewState extends State<HomePageview> {
   int _selectedIndex = 0;
   bool isSwitched = false;
   final List<Widget> _widgetOptions = [
+     CardsBuyViews(),
     SearchWiew(),
     FavoriteWidget(),
     ShoppingView(),
@@ -30,6 +33,7 @@ class _HomePageviewState extends State<HomePageview> {
   @override
   Widget build(BuildContext context) {
     final List<String> _tittleOptions = [
+      tr('home'),
       tr("search_title"),
       tr("favorite"),
       tr("shopping"),
@@ -41,15 +45,24 @@ class _HomePageviewState extends State<HomePageview> {
           onTap: _onItemTapped,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: const Icon(Icons.search),
-              label: tr("search_icon"),
+              activeIcon: const Icon(Icons.home, color: Colors.orange),
+              icon: const Icon(Icons.home, color: Colors.grey),
+              label: tr("home"),
             ),
             BottomNavigationBarItem(
-                icon: const Icon(Icons.favorite), label: tr("favorite")),
-            // BottomNavigationBarItem(
-            // icon: const Icon(Icons.shopping_bag), label: "shopping"),
+              activeIcon: const Icon(Icons.search, color: Colors.orange),
+              icon: const Icon(Icons.search, color: Colors.grey),
+              label: tr("search_icon"),
+            ),
+            BottomNavigationBarItem(activeIcon: const Icon(Icons.favorite, color: Colors.orange),
+                icon: const Icon(Icons.favorite, color: Colors.grey),
+                label: tr("favorite")),
+          
             BottomNavigationBarItem(
-                icon: const Icon(Icons.shopping_bag), label: tr("shopping")),
+              icon: const Icon(Icons.shopping_bag, color: Colors.grey),
+              label: tr("shopping"),
+              activeIcon: const Icon(Icons.shopping_bag, color: Colors.orange),
+            ),
           ]),
       appBar: AppBar(
         actions: [

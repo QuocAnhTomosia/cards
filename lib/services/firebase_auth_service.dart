@@ -1,6 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class FirebaseAuthService {
-  final instance = FirebaseAuth.instance;
+  final _instance = FirebaseAuth.instance;
+
+  Future<User?> emailSignIn(String email, String password) async {
+    final UserCredential userCredential = await _instance
+        .signInWithEmailAndPassword(email: email, password: password);
+    return userCredential.user;
+  }
 }

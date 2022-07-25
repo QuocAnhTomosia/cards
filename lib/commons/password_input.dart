@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class PassWordWidget extends StatefulWidget {
   String hintText;
-  final passwordController ;
+  // ignore: prefer_typing_uninitialized_variables
+  final passwordController;
   PassWordWidget({
     Key? key,
     required this.hintText,
