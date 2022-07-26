@@ -20,6 +20,8 @@ class FireStoreService {
       "orderList": {}
     });
     try {
+      // de userCredentail phuc vu cho 
+      //viec xu ly cac exception
       UserCredential userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: name,

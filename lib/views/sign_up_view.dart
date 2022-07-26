@@ -1,10 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:yugi_oh_cards/bloc/sign_up/bloc/user_sign_up_bloc.dart';
 import 'package:yugi_oh_cards/commons/password_input.dart';
 import 'package:yugi_oh_cards/commons/text_input.dart';
 import 'dart:async';
 import 'dart:io';
+
+import 'package:yugi_oh_cards/cubit/image_cubit.dart';
+import 'package:yugi_oh_cards/models/sign_up_model.dart';
 
 class AvatarPicker extends StatefulWidget {
   const AvatarPicker({Key? key}) : super(key: key);
@@ -21,6 +26,8 @@ class _AvatarPickerState extends State<AvatarPicker> {
     try {
       final imagePicker =
           await ImagePicker().pickImage(source: ImageSource.gallery);
+      // ignore: use_build_context_synchronously, invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
+      context.read<ImageCubit>().emit(File(imagePicker!.path));
       setState(() {
         imageFile = imagePicker;
       });
@@ -34,23 +41,21 @@ class _AvatarPickerState extends State<AvatarPicker> {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(8.0),
-      child: InkWell(
-        onTap: _getFromGallery,
-        child: imageFile != null
-            ? Image.file(
-                fit: BoxFit.cover,
-                File(imageFile!.path),
-                height: 150.0,
-                width: 100.0,
-              )
-            : Image.network(
-                'https://media.istockphoto.com/photos/obedient-dog-breed-welsh-corgi-pembroke-sitting-and-smiles-on-a-white-picture-id1193591781?k=20&m=1193591781&s=612x612&w=0&h=D2Qg6u_zxR0BlaV_JnBUPk69s1fKA8jLWXqKL307L7A='),
-      ),
-    );
+        borderRadius: BorderRadius.circular(8.0),
+        child: InkWell(
+          onTap: _getFromGallery,
+          child: imageFile != null
+              ? Image.file(
+                  fit: BoxFit.cover,
+                  File(imageFile!.path),
+                  height: 150.0,
+                  width: 100.0,
+                )
+              : Image.network(
+                  'https://st2.depositphotos.com/1833015/8776/i/450/depositphotos_87766636-stock-photo-dog-breed-welsh-corgi-pembroke.jpg'),
+        ));
   }
 }
-
 
 class SignUpView extends StatelessWidget {
   SignUpView({Key? key}) : super(key: key);
@@ -63,30 +68,46 @@ class SignUpView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Column(
-        children: <Widget>[
-          AvatarPicker(),
-          TextInputWidget(
-            text: "Enter your name",
-            controller: _emailController,
-          ),
-          TextInputWidget(
-            text: "Enter your email",
-            controller: _name,
-          ),
-          TextInputWidget(
-            text: "Enter your phoneNumber",
-            controller: _phone,
-          ),
-          PassWordWidget(
-            hintText: 'enter your password',
-            passwordController: _password,
-          ),
-          PassWordWidget(
-              hintText: 're enter your password',
-              passwordController: _reEnterPassword),
-          ElevatedButton(onPressed: () {}, child: Text(tr("submit"))),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            AvatarPicker(),
+            TextInputWidget(
+              text: "Enter your name",
+              controller: _emailController,
+            ),
+            TextInputWidget(
+              text: "Enter your email",
+              controller: _name,
+            ),
+            TextInputWidget(
+              text: "Enter your phoneNumber",
+              controller: _phone,
+            ),
+            PassWordWidget(
+              hintText: 'enter your password',
+              passwordController: _password,
+            ),
+            PassWordWidget(
+                hintText: 're enter your password',
+                passwordController: _reEnterPassword),
+            BlocBuilder<UserSignUpBloc, UserSignUpState>(
+              builder: (context, state) {
+                return ElevatedButton(
+                    onPressed: () {
+                      context.read<UserSignUpBloc>().add(UserSignUpSubmit(
+                          info: SignUpInfo(
+                              name: _name.text,
+                              email: _emailController.text,
+                              image: File(context.read<ImageCubit>().state.path),
+                              phoneNumber: _phone.text,
+                              password: _password.text)));
+                    },
+                    child: Text(tr("submit")));
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

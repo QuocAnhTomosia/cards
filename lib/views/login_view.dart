@@ -33,6 +33,7 @@ class LoginView extends StatelessWidget {
           ElevatedButton(
               onPressed: () async {
                 try {
+                 
                   UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
     email: _emailController.text,
     password: _passwordController.text,
