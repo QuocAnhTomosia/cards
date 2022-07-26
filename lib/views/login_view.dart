@@ -27,12 +27,17 @@ class LoginView extends StatelessWidget {
           InkWell(
             child: const Text("Sign up"),
             onTap: () {
-              Navigator.of(context).pushNamed('/sign-up');
+              Navigator.of(context).pushNamed('/sign_up');
             },
           ),
           ElevatedButton(
               onPressed: () async {
                 try {
+                  UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+    email: _emailController.text,
+    password: _passwordController.text,
+  );
+                  // ignore: use_build_context_synchronously
                   Navigator.of(context).pushNamedAndRemoveUntil(
                       '/home_page', (Route<dynamic> route) => false);
                 } on FirebaseAuthException catch (e) {

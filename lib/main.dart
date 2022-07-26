@@ -2,10 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yugi_oh_cards/cubit/pass_visible_cubit.dart';
+import 'package:yugi_oh_cards/bloc/sign_up/bloc/user_sign_up_bloc.dart';
+import 'package:yugi_oh_cards/cubit/image_cubit.dart';
 import 'package:yugi_oh_cards/routes/route_names.dart';
 
-import 'bloc/cards_searching_bloc.dart';
+import 'bloc/cards_searching/cards_searching_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,8 +31,8 @@ class YugiOh extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<PassVisibleCubit>(
-            create: (BuildContext context) => PassVisibleCubit()),
+        BlocProvider<UserSignUpBloc>(create: ((context) => UserSignUpBloc())),
+        BlocProvider<ImageCubit>(create: (BuildContext context)=>ImageCubit()), 
         BlocProvider<CardsSearchingBloc>(
           create: (BuildContext context) => CardsSearchingBloc(),
         ),

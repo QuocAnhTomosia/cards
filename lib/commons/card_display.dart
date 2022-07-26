@@ -29,26 +29,28 @@ class CardDisplay extends StatelessWidget {
             return Scaffold(
               appBar: AppBar(title: Text(card.name)),
               body: Center(
-                child: Column(children: [
-                  SizedBox(
-                    width: size.width * 0.7,
-                    height: size.width * 0.7 * 1.4,
-                    child: Image.network(
-                      card.image_url,
-                      fit: BoxFit.fill,
+                child: SingleChildScrollView(
+                  child: Column(children: [
+                    SizedBox(
+                      width: size.width * 0.7,
+                      height: size.width * 0.7 * 1.4,
+                      child: Image.network(
+                        card.image_url,
+                        fit: BoxFit.fill,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    width: size.width,
-                    child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.blueAccent)),
-                        child: Text("Description: ${card.desc}")),
-                  ),
-                  SizedBox(
-                    child: Text("Price: ${card.card_prices}"),
-                  ),
-                ]),
+                    SizedBox(
+                      width: size.width,
+                      child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.blueAccent)),
+                          child: Text("Description: ${card.desc}")),
+                    ),
+                    SizedBox(
+                      child: Text("Price: ${card.card_prices}"),
+                    ),
+                  ]),
+                ),
               ),
             );
           },

@@ -10,7 +10,7 @@ class StartView extends StatelessWidget {
       floatingActionButton: IconButton(
         onPressed: () {
           Navigator.of(context).pushNamedAndRemoveUntil(
-              '/home_page', (Route<dynamic> route) => false);
+              '/log_in', (Route<dynamic> route) => false);
         },
         icon: const Icon(Icons.skip_next),
       ),

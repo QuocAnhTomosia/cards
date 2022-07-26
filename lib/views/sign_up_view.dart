@@ -65,7 +65,7 @@ class SignUpView extends StatelessWidget {
       appBar: AppBar(),
       body: Column(
         children: <Widget>[
-          const AvatarPicker(),
+          AvatarPicker(),
           TextInputWidget(
             text: "Enter your name",
             controller: _emailController,
