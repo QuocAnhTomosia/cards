@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yugi_oh_cards/bloc/log_in/bloc/log_in_bloc.dart';
 import 'package:yugi_oh_cards/commons/password_input.dart';
 import 'package:yugi_oh_cards/commons/text_input.dart';
 
@@ -13,41 +15,54 @@ class LoginView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Login "),
-      ),
-      body: Column(
-        children: <Widget>[
-          TextInputWidget(
-            text: "Enter your email",
-            controller: _emailController,
-          ),
-          PassWordWidget(
-            hintText: "Enter your password",
-            passwordController: _passwordController,
-          ),
-          InkWell(
-            child: const Text("Sign up"),
-            onTap: () {
-              Navigator.of(context).pushNamed('/sign_up');
-            },
-          ),
-          ElevatedButton(
-              onPressed: () async {
-                try {
-                 
-                  UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-    email: _emailController.text,
-    password: _passwordController.text,
-  );
-                  // ignore: use_build_context_synchronously
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                      '/home_page', (Route<dynamic> route) => false);
-                } on FirebaseAuthException catch (e) {
-                  if (e.code == 'user-not-found') {
-                  } else if (e.code == 'wrong-password') {}
-                }
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/settings');
               },
-              child: Text(tr("submit"))),
+              icon: const Icon(Icons.settings))
         ],
+      ),
+      body: BlocBuilder<LogInBloc, LogInState>(
+        builder: (context, state) {
+          return Column(
+              children: <Widget>[
+                TextInputWidget(
+                  text: "Enter your email",
+                  controller: _emailController,
+                ),
+                PassWordWidget(
+                  hintText: "Enter your password",
+                  passwordController: _passwordController,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/sign_up');
+                  },
+                  child: const SizedBox(
+                      width: 60, child: Center(child: Text("Sign up"))),
+                ),
+                ElevatedButton(
+                    onPressed: () async {
+                      try {
+                        context.read<LogInBloc>().add(LogInSubmit(email: _emailController.text, password: _passwordController.text));
+                        UserCredential userCredential =
+                            await FirebaseAuth.instance.signInWithEmailAndPassword(
+                          email: _emailController.text,
+                          password: _passwordController.text,
+                        );
+                        // ignore: use_build_context_synchronously
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            '/home_page', (Route<dynamic> route) => false);
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'user-not-found') {
+                        } else if (e.code == 'wrong-password') {}
+                      }
+                    },
+                    child: SizedBox(width: 60, child: Text(tr("submit")))),
+              ],
+            );
+        },
       ),
     );
   }

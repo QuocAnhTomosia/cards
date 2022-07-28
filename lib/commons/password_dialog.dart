@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class PasswordDialog extends StatelessWidget {
-  String pass;
-  String reEnterPass;
+ 
   PasswordDialog({
     Key? key,
-    required this.pass,
-    required this.reEnterPass,
+   
   }) : super(key: key);
 
   @override

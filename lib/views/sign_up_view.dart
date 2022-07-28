@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:yugi_oh_cards/bloc/sign_up/bloc/user_sign_up_bloc.dart';
+import 'package:yugi_oh_cards/commons/constant.dart';
+import 'package:yugi_oh_cards/commons/password_dialog.dart';
 import 'package:yugi_oh_cards/commons/password_input.dart';
 import 'package:yugi_oh_cards/commons/text_input.dart';
 import 'dart:async';
@@ -10,6 +12,7 @@ import 'dart:io';
 
 import 'package:yugi_oh_cards/cubit/image_cubit.dart';
 import 'package:yugi_oh_cards/models/sign_up_model.dart';
+import 'package:yugi_oh_cards/routes/route_names.dart';
 
 class AvatarPicker extends StatefulWidget {
   const AvatarPicker({Key? key}) : super(key: key);
@@ -40,20 +43,21 @@ class _AvatarPickerState extends State<AvatarPicker> {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-        borderRadius: BorderRadius.circular(8.0),
-        child: InkWell(
-          onTap: _getFromGallery,
-          child: imageFile != null
-              ? Image.file(
-                  fit: BoxFit.cover,
+    return Column(
+      children: [
+        CircleAvatar(
+          radius: 50, // Image radius
+          backgroundImage: imageFile != null
+              ? FileImage(
                   File(imageFile!.path),
-                  height: 150.0,
-                  width: 100.0,
-                )
-              : Image.network(
-                  'https://st2.depositphotos.com/1833015/8776/i/450/depositphotos_87766636-stock-photo-dog-breed-welsh-corgi-pembroke.jpg'),
-        ));
+                ) as ImageProvider
+              : AssetImage(Constant().avatarImage),
+        ),
+        ElevatedButton(
+            onPressed: _getFromGallery,
+            child: const Text("Choose your Avatar")),
+      ],
+    );
   }
 }
 
@@ -66,11 +70,21 @@ class SignUpView extends StatelessWidget {
   final TextEditingController _reEnterPassword = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/settings');
+              },
+              icon: const Icon(Icons.settings))
+        ],
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+            SizedBox(height: size.height * 0.05),
             AvatarPicker(),
             TextInputWidget(
               text: "Enter your name",
@@ -95,13 +109,29 @@ class SignUpView extends StatelessWidget {
               builder: (context, state) {
                 return ElevatedButton(
                     onPressed: () {
-                      context.read<UserSignUpBloc>().add(UserSignUpSubmit(
+                       if(_password.text!=_reEnterPassword.text)
+                      {
+                        showDialog<String>(context: context,builder: (BuildContext context) => PasswordDialog() );
+                      }
+                     else
+                     {
+                       context.read<UserSignUpBloc>().add(UserSignUpSubmit(
                           info: SignUpInfo(
                               name: _name.text,
                               email: _emailController.text,
-                              image: File(context.read<ImageCubit>().state.path),
+                              image:
+                                  File(context.read<ImageCubit>().state.path),
                               phoneNumber: _phone.text,
                               password: _password.text)));
+                              if(state is UserSignUpSubmitted)
+                              {
+                                Navigator.pushNamed(context, '/log_in');
+                              }
+                              else if( state is UserSignUpError)
+                              {
+                                showDialog<String>(context: context,builder: (BuildContext context) => PasswordDialog() );
+                              }
+                     }
                     },
                     child: Text(tr("submit")));
               },

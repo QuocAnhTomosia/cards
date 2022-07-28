@@ -12,33 +12,43 @@ class FireStoreService {
 
   Future<String> addNewUser(
       String email, String name, String password, String imageLink) async {
-    await _instance.collection("Users").add({
-      "email": email,
-      "name": name,
-      "image_link": imageLink,
-      "favorites": {},
-      "orderList": {}
-    });
-    try {
-      // de userCredentail phuc vu cho 
-      //viec xu ly cac exception
-      UserCredential userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: name,
-        password: password,
-      );
-      return "Success";
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        return "weak password";
-      } else if (e.code == 'email-already-in-use') {
-        return "email-already-in-use";
+    var checkUser = await _instance
+        .collection("Users")
+        .where("email", isEqualTo: email)
+        .get();
+    if (checkUser.docs.isEmpty) {
+      await _instance.collection("Users").add({
+        "email": email,
+        "name": name,
+        "image_link": imageLink,
+        "favorites": {},
+        "orderList": {}
+      });
+      try {
+        // de userCredentail phuc vu cho
+        //viec xu ly cac exception
+        UserCredential userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: name,
+          password: password,
+        );
+        return "Success";
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          return "weak password";
+        } else if (e.code == 'email-already-in-use') {
+          return "email-already-in-use";
+        }
+      } catch (e) {
+        return "Some Error happend";
+      } finally {
+        // ignore: control_flow_in_finally
+        return "Done";
       }
-    } catch (e) {
-      return "Some Error happend";
-    } finally {
-      // ignore: control_flow_in_finally
-      return "Done";
+    }
+    else
+    {
+      return "Your email has exists";
     }
   }
 
@@ -54,5 +64,14 @@ class FireStoreService {
         return "Upload Error";
       }
     }
+  }
+
+  getUser(String email) async {
+    var userSnapshots = await _instance
+        .collection("Users")
+        .where("email", isEqualTo: email)
+        .get();
+    print("this is" + userSnapshots.docs.toString());
+    return userSnapshots;
   }
 }
