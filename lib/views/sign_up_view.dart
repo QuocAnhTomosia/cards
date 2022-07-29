@@ -4,15 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:yugi_oh_cards/bloc/sign_up/bloc/user_sign_up_bloc.dart';
 import 'package:yugi_oh_cards/commons/constant.dart';
-import 'package:yugi_oh_cards/commons/password_dialog.dart';
 import 'package:yugi_oh_cards/commons/password_input.dart';
 import 'package:yugi_oh_cards/commons/text_input.dart';
 import 'dart:async';
 import 'dart:io';
 
 import 'package:yugi_oh_cards/cubit/image_cubit.dart';
-import 'package:yugi_oh_cards/models/sign_up_model.dart';
-import 'package:yugi_oh_cards/routes/route_names.dart';
 
 class AvatarPicker extends StatefulWidget {
   const AvatarPicker({Key? key}) : super(key: key);
@@ -88,11 +85,11 @@ class SignUpView extends StatelessWidget {
             AvatarPicker(),
             TextInputWidget(
               text: "Enter your name",
-              controller: _emailController,
+              controller: _name,
             ),
             TextInputWidget(
               text: "Enter your email",
-              controller: _name,
+              controller: _emailController,
             ),
             TextInputWidget(
               text: "Enter your phoneNumber",
@@ -105,35 +102,38 @@ class SignUpView extends StatelessWidget {
             PassWordWidget(
                 hintText: 're enter your password',
                 passwordController: _reEnterPassword),
-            BlocBuilder<UserSignUpBloc, UserSignUpState>(
-              builder: (context, state) {
-                return ElevatedButton(
-                    onPressed: () {
-                       if(_password.text!=_reEnterPassword.text)
-                      {
-                        showDialog<String>(context: context,builder: (BuildContext context) => PasswordDialog() );
-                      }
-                     else
-                     {
-                       context.read<UserSignUpBloc>().add(UserSignUpSubmit(
-                          info: SignUpInfo(
-                              name: _name.text,
-                              email: _emailController.text,
-                              image:
-                                  File(context.read<ImageCubit>().state.path),
-                              phoneNumber: _phone.text,
-                              password: _password.text)));
-                              if(state is UserSignUpSubmitted)
-                              {
-                                Navigator.pushNamed(context, '/log_in');
-                              }
-                              else if( state is UserSignUpError)
-                              {
-                                showDialog<String>(context: context,builder: (BuildContext context) => PasswordDialog() );
-                              }
-                     }
-                    },
-                    child: Text(tr("submit")));
+            BlocListener<UserSignUpBloc, UserSignUpState>(
+              child: ElevatedButton(
+                onPressed: (() {
+                  context.read<UserSignUpBloc>().add(UserSignUpSubmit(
+                      name: _name.text,
+                      email: _emailController.text,
+                      password: _password.text,
+                      phoneNumber: _phone.text,
+                      image: File(context.read<ImageCubit>().state.path)));
+                  
+                }),
+                child: Text(tr("submit")),
+              ),
+              listener: (context, state) {
+                if (state is UserSignUpSubmitted) {
+                  Navigator.pushNamed(context, '/log_in');
+                }
+                if (state is UserSignUpError) {
+                  showDialog(
+                      context: context,
+                      builder: ((context) => AlertDialog(
+                            title: const Text("please check Sign up Info"),
+                            content: Text(state.error),
+                            actions: [
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(context, 'Cancel'),
+                                child: const Text('Cancel'),
+                              ),
+                            ],
+                          )));
+                }
               },
             ),
           ],

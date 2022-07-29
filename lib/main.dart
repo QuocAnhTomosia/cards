@@ -14,6 +14,7 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(); //
   runApp(
+    
     EasyLocalization(
         path: 'assets/translations',
         supportedLocales: const [

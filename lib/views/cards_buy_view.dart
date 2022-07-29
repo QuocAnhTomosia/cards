@@ -9,29 +9,29 @@ class CardsBuyViews extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(scrollDirection: Axis.vertical,
-      child: Column(
-        children: [
-          for (int i = 0; i < 20; i++)
-            FutureBuilder<DataResponse>(
-              future: CardApi().fetchData("", tr("lang")),
-              builder: ((context, snapshot) {
-                if (snapshot.hasError || !snapshot.hasData) {
-                  return const Center(
-                    child: SpinKitFadingCircle(
-                      color: Colors.blue,
-                      size: 50.0,
-                    ),
-                  );
-                } else if (snapshot.hasData) {
-                  return CardDisplay(card: snapshot.data!.list[0]);
-                } else {
-                  return const Text("dont know");
-                }
-              }),
-            ),
-        ],
-      ),
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: 20,
+      itemBuilder: (context, index) {
+        return FutureBuilder<DataResponse>(
+          future: CardApi().fetchData("", tr("lang")),
+          builder: ((context, snapshot) {
+            if (snapshot.hasError || !snapshot.hasData) {
+              return const Center(
+                child: SpinKitFadingCircle(
+                  color: Colors.blue,
+                  size: 50.0,
+                ),
+              );
+            } else if (snapshot.hasData) {
+              return CardDisplay(card: snapshot.data!.list[0]);
+            } else {
+              return const Text("dont know");
+            }
+          }),
+        );
+      },
     );
   }
 }

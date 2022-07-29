@@ -1,6 +1,9 @@
 import 'package:animations/animations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yugi_oh_cards/bloc/log_in/bloc/log_in_bloc.dart';
+import 'package:yugi_oh_cards/bloc/log_in/bloc/log_in_state.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({Key? key}) : super(key: key);
@@ -36,7 +39,8 @@ class SettingsView extends StatelessWidget {
                           child: SizedBox(
                               height: size.height * 0.08,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   const Text("Tieng Viet"),
                                   Visibility(
@@ -54,11 +58,12 @@ class SettingsView extends StatelessWidget {
                           child: SizedBox(
                               height: size.height * 0.08,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   const Text("English"),
                                   Visibility(
-                                      visible: tr("lang") =="en",
+                                      visible: tr("lang") == "en",
                                       child: const Icon(
                                         Icons.check,
                                         color: Colors.blue,
@@ -74,7 +79,8 @@ class SettingsView extends StatelessWidget {
                           child: SizedBox(
                               height: size.height * 0.08,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   const Text("French"),
                                   Visibility(
@@ -87,6 +93,20 @@ class SettingsView extends StatelessWidget {
                       ],
                     ),
                   )),
+          BlocListener<LogInBloc, LogInState>(
+            listener: ((context, state) {
+              if (state.status == LogInStatus.init) {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, "/log_in", (route) => false);
+              }
+            }),
+            child: ElevatedButton(
+              child: const Text("Log out"),
+              onPressed: () {
+                context.read<LogInBloc>().add(const LogInReset());
+              },
+            ),
+          ),
         ],
       ),
     );

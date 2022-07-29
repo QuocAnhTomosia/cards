@@ -1,32 +1,28 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:yugi_oh_cards/models/user_model.dart';
-import 'package:yugi_oh_cards/services/firebase_firestore_service.dart';
+import 'package:yugi_oh_cards/bloc/log_in/bloc/log_in_state.dart';
+import 'package:yugi_oh_cards/services/firebase_auth_service.dart';
 
 part 'log_in_event.dart';
-part 'log_in_state.dart';
 
 class LogInBloc extends Bloc<LogInEvent, LogInState> {
-  LogInBloc() : super(LogInInitial()) {
+  LogInBloc() : super(const LogInState.initState()) {
     on<LogInEvent>((event, emit) {});
-    on<LogInSubmit>((event, emit) async{
-      emit(LogInInitial());
-      
-       try {
-                  UserCredential userCredential =
-                      await FirebaseAuth.instance.signInWithEmailAndPassword(
-                    email: event.email,
-                    password: event.password,
-                  );
-                  // ignore: use_build_context_synchronously
-                
-                 print( FireStoreService().getUser(event.email));
-                } on FirebaseAuthException catch (e) {
-                  if (e.code == 'user-not-found') {
-                    emit(LogInError(e.code));
-                  } else if (e.code == 'wrong-password') {emit(LogInError(e.code));}
-                }
-    });
+    on<LogInSubmit>(_onSubmit);
+    on<LogInReset>(
+      (event, emit) {
+        emit(const LogInState(message: "", status: LogInStatus.init));
+      },
+    );
+  }
+
+  Future<void> _onSubmit(LogInSubmit event, Emitter emit) async {
+    try {
+      String result =
+          await FirebaseAuthService().emailSignIn(event.email, event.password);
+      emit(LogInState(message: result, status: LogInStatus.success));
+    } catch (e) {
+      emit(LogInState(message: e.toString(), status: LogInStatus.error));
+    }
   }
 }

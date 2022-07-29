@@ -1,25 +1,29 @@
-part of 'log_in_bloc.dart';
+import 'package:equatable/equatable.dart';
 
-abstract class LogInState extends Equatable {
-  const LogInState();
-  
+enum LogInStatus { init, error, success }
+
+class LogInState extends Equatable {
+  final LogInStatus? status;
+  final String? message;
+  const LogInState({
+    this.status,
+    this.message,
+  });
+  const LogInState.initState() : this(status: LogInStatus.init);
+  LogInState copyWith({
+    
+    String? message,
+    LogInStatus? logInStatus,
+  }) {
+    return LogInState(
+      message: message,
+      status: logInStatus,
+    );
+  }
+
+  const LogInState.error( String mess) : this(message: mess,status: LogInStatus.error);
+  const LogInState.success(String uid) : this(message: uid,status: LogInStatus.success);
+
   @override
-  List<Object> get props => [];
-}
-
-class LogInInitial extends LogInState {}
-
-
-class LogInError extends LogInState
-{
-  final String error;
-  const LogInError(this.error);
-}
-
-class LogInSuccess extends LogInState
-{
-  final MyUser user;
-  const LogInSuccess(this.user);
-   @override
-  List<Object> get props => [user];
+  List<Object?> get props => [ message,status];
 }

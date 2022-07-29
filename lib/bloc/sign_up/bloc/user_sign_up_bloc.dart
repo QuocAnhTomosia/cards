@@ -1,10 +1,7 @@
-
-
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:yugi_oh_cards/models/sign_up_model.dart';
 import 'package:yugi_oh_cards/services/firebase_firestore_service.dart';
 
 part 'user_sign_up_event.dart';
@@ -22,10 +19,17 @@ class UserSignUpBloc extends Bloc<UserSignUpEvent, UserSignUpState> {
       }
       try {
         String img =
-            await FireStoreService().uploadImage(File(event.info.image.path));
+            await FireStoreService().uploadImage(File(event.image.path));
         String status = await FireStoreService().addNewUser(
-            event.info.email, event.info.name, event.info.password, img);
-        emit(const UserSignUpSubmitted());
+            event.name, event.email, event.password,img, event.phoneNumber);
+        if(status == "Success")
+        {
+          emit(const UserSignUpSubmitted());
+        }
+        else
+        {
+          emit(UserSignUpError(error: status));
+        }
       } catch (e) {
         emit(UserSignUpError(error: e.toString()));
       }

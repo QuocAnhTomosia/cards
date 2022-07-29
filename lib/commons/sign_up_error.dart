@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
-class PasswordDialog extends StatelessWidget {
- 
-  const PasswordDialog({
-    Key? key,
-   
+
+class SignUpDialog extends StatelessWidget {
+  final String error;
+  const SignUpDialog(
+     {
+    Key? key, required this.error,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("please check our password"),
-      content: const Text("the password and the reenter password are not the same"),
+      title: const Text("please check our Sign up "),
+      content:  Text(error),
       actions: [
         TextButton(
               onPressed: () => Navigator.pop(context, 'Cancel'),

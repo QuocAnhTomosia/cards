@@ -1,10 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yugi_oh_cards/bloc/log_in/bloc/log_in_bloc.dart';
 import 'package:yugi_oh_cards/commons/password_input.dart';
 import 'package:yugi_oh_cards/commons/text_input.dart';
+
+import '../bloc/log_in/bloc/log_in_state.dart';
 
 class LoginView extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
@@ -13,57 +14,67 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Login "),
-        actions: [
-          IconButton(
+        appBar: AppBar(
+          title: const Text("Login "),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/settings');
+                },
+                icon: const Icon(Icons.settings))
+          ],
+        ),
+        body: Column(
+          children: <Widget>[
+            TextInputWidget(
+              text: "Enter your email",
+              controller: _emailController,
+            ),
+            PassWordWidget(
+              hintText: "Enter your password",
+              passwordController: _passwordController,
+            ),
+            ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/settings');
+                Navigator.of(context).pushNamed('/sign_up');
               },
-              icon: const Icon(Icons.settings))
-        ],
-      ),
-      body: BlocBuilder<LogInBloc, LogInState>(
-        builder: (context, state) {
-          return Column(
-              children: <Widget>[
-                TextInputWidget(
-                  text: "Enter your email",
-                  controller: _emailController,
-                ),
-                PassWordWidget(
-                  hintText: "Enter your password",
-                  passwordController: _passwordController,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed('/sign_up');
+              child: const SizedBox(
+                  width: 60, child: Center(child: Text("Sign up"))),
+            ),
+            BlocListener<LogInBloc, LogInState>(
+              listener: (context, state) {
+                if (state.status == LogInStatus.init) {}
+                if (state.status == LogInStatus.success) {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, "/home_page", (route) => false);
+                }
+                if (state.status == LogInStatus.error) {
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                            title: const Text("Error happend"),
+                            content: Text(state.message!),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context, 'Cancel');
+                                  
+                                },
+                                child: const Text('Cancel'),
+                              ),
+                            ],
+                          ));
+                }
+              },
+              child: ElevatedButton(
+                  onPressed: () async {
+                    context.read<LogInBloc>().add(LogInSubmit(
+                        email: _emailController.text,
+                        password: _passwordController.text));
                   },
-                  child: const SizedBox(
-                      width: 60, child: Center(child: Text("Sign up"))),
-                ),
-                ElevatedButton(
-                    onPressed: () async {
-                      try {
-                        context.read<LogInBloc>().add(LogInSubmit(email: _emailController.text, password: _passwordController.text));
-                        UserCredential userCredential =
-                            await FirebaseAuth.instance.signInWithEmailAndPassword(
-                          email: _emailController.text,
-                          password: _passwordController.text,
-                        );
-                        // ignore: use_build_context_synchronously
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                            '/home_page', (Route<dynamic> route) => false);
-                      } on FirebaseAuthException catch (e) {
-                        if (e.code == 'user-not-found') {
-                        } else if (e.code == 'wrong-password') {}
-                      }
-                    },
-                    child: SizedBox(width: 60, child: Text(tr("submit")))),
-              ],
-            );
-        },
-      ),
-    );
+                  child: SizedBox(width: 60, child: Text(tr("submit")))),
+            ),
+          ],
+        ));
   }
 }

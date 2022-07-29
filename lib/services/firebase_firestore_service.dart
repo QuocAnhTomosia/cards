@@ -10,44 +10,36 @@ class FireStoreService {
   final FirebaseFirestore _instance = FirebaseFirestore.instance;
   final FirebaseStorage _ref = FirebaseStorage.instance;
 
-  Future<String> addNewUser(
+  Future<String> addNewUser(String phoneNumber,
       String email, String name, String password, String imageLink) async {
     var checkUser = await _instance
         .collection("Users")
         .where("email", isEqualTo: email)
         .get();
-    if (checkUser.docs.isEmpty) {
-      await _instance.collection("Users").add({
-        "email": email,
-        "name": name,
-        "image_link": imageLink,
-        "favorites": {},
-        "orderList": {}
-      });
+    if (checkUser.docs.isEmpty || checkUser.docs[0].data()["email"] != email) {
       try {
-        // de userCredentail phuc vu cho
-        //viec xu ly cac exception
         UserCredential userCredential =
             await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: name,
+          email: email,
           password: password,
         );
+          await _instance.collection("Users").add({
+          "email": email,
+          "name": name,
+          "image_link": imageLink,
+          "favorites": {},
+          "orderList": {},
+          "phoneNumer":phoneNumber,
+        });
+
+        // de userCredentail phuc vu cho
+        //viec xu ly cac exception
+
         return "Success";
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'weak-password') {
-          return "weak password";
-        } else if (e.code == 'email-already-in-use') {
-          return "email-already-in-use";
-        }
       } catch (e) {
         return "Some Error happend";
-      } finally {
-        // ignore: control_flow_in_finally
-        return "Done";
       }
-    }
-    else
-    {
+    } else {
       return "Your email has exists";
     }
   }
@@ -71,7 +63,7 @@ class FireStoreService {
         .collection("Users")
         .where("email", isEqualTo: email)
         .get();
-    print("this is" + userSnapshots.docs.toString());
-    return userSnapshots;
+    
+    return userSnapshots.docs[0].id;
   }
 }
