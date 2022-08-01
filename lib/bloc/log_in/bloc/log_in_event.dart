@@ -7,23 +7,15 @@ abstract class LogInEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LogInChangeEmail extends LogInEvent {
-  final String email;
-  const LogInChangeEmail({
-    required this.email,
-  });
-
-  @override
-  List<Object> get props => [email];
-}
-
-class LogInChangePassword extends LogInEvent {
-  final String password;
-  const LogInChangePassword({
-    required this.password,
+class LogInChangeInfo extends LogInEvent {
+  final String field;
+  final dynamic data;
+  const LogInChangeInfo({
+    required this.field,
+    required this.data,
   });
   @override
-  List<Object> get props => [password];
+  List<Object> get props => [field,data];
 }
 
 class LogInReset extends LogInEvent {

@@ -1,13 +1,13 @@
 class MyUser {
-  String uid;
+  String name;
   String phoneNumber;
   String email;
   String imageLink;
   String password;
-  List<int> favorites;
-  List<Map<int, int>> orderList;
+  List<dynamic> favorites;
+  Map<dynamic,dynamic> orderList;
   MyUser({
-    required this.uid,
+    required this.name,
     required this.phoneNumber,
     required this.email,
     required this.imageLink,
@@ -18,7 +18,7 @@ class MyUser {
 
   factory MyUser.fromJson(Map<String, dynamic> json) {
     return MyUser(
-        uid: json["uid"],
+      name: json["name"],
         password: json["password"],
         phoneNumber: json["phoneNumber"],
         email: json["email"],

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart';
+import 'package:yugi_oh_cards/models/user_model.dart';
 
 class FireStoreService {
   // instance de mo firestore
@@ -10,8 +11,14 @@ class FireStoreService {
   final FirebaseFirestore _instance = FirebaseFirestore.instance;
   final FirebaseStorage _ref = FirebaseStorage.instance;
 
-  Future<String> addNewUser(String phoneNumber,
-      String email, String name, String password, String imageLink) async {
+  getUserByUid(String uid) async {
+    var tmp = await _instance.collection("Users").doc(uid).get();
+    return MyUser.fromJson(tmp.data()!);
+    
+  }
+
+  Future<String> addNewUser(String phoneNumber, String email, String name,
+      String password, String imageLink) async {
     var checkUser = await _instance
         .collection("Users")
         .where("email", isEqualTo: email)
@@ -23,13 +30,13 @@ class FireStoreService {
           email: email,
           password: password,
         );
-          await _instance.collection("Users").add({
+        await _instance.collection("Users").add({
           "email": email,
           "name": name,
           "image_link": imageLink,
           "favorites": {},
           "orderList": {},
-          "phoneNumer":phoneNumber,
+          "phoneNumer": phoneNumber,
         });
 
         // de userCredentail phuc vu cho
@@ -42,6 +49,10 @@ class FireStoreService {
     } else {
       return "Your email has exists";
     }
+  }
+
+  updateInfo(String uid, String field, dynamic data) {
+    _instance.collection("Users").doc(uid).update({field: data});
   }
 
   Future<String> uploadImage(File imageFile) async {
@@ -63,7 +74,7 @@ class FireStoreService {
         .collection("Users")
         .where("email", isEqualTo: email)
         .get();
-    
+
     return userSnapshots.docs[0].id;
   }
 }

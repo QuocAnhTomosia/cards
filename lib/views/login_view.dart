@@ -43,7 +43,9 @@ class LoginView extends StatelessWidget {
             ),
             BlocListener<LogInBloc, LogInState>(
               listener: (context, state) {
-                if (state.status == LogInStatus.init) {}
+                if (state.status == LogInStatus.init) {
+
+                }
                 if (state.status == LogInStatus.success) {
                   Navigator.pushNamedAndRemoveUntil(
                       context, "/home_page", (route) => false);
@@ -64,6 +66,7 @@ class LoginView extends StatelessWidget {
                               ),
                             ],
                           ));
+                          context.read<LogInBloc>().add(const LogInReset());
                 }
               },
               child: ElevatedButton(
