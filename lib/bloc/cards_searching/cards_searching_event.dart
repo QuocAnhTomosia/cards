@@ -10,6 +10,27 @@ class CardSearchingStarted extends CardsSearchingEvent {
   List<Object> get props => [];
 }
 
+class CardSearchingIdSubmit extends CardsSearchingEvent {
+  final List<dynamic> list;
+  final String language;
+
+  const CardSearchingIdSubmit(
+    this.list,
+    this.language,
+  );
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [list, language];
+}
+
+class CardRandomSubit extends CardsSearchingEvent {
+  const CardRandomSubit();
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
+}
+
 class CardSearchingSubmit extends CardsSearchingEvent {
   final String name;
   final String language;
@@ -18,5 +39,5 @@ class CardSearchingSubmit extends CardsSearchingEvent {
     required this.language,
   });
   @override
-  List<Object> get props => [name,language];
+  List<Object> get props => [name, language];
 }

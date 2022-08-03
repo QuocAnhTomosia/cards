@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yugi_oh_cards/views/cards_buy_view.dart';
+import 'package:yugi_oh_cards/views/chat_view.dart';
 import 'package:yugi_oh_cards/views/search_view.dart';
 import 'package:yugi_oh_cards/views/sign_up_view.dart';
 
@@ -17,5 +18,6 @@ class NamedRouter {
     '/search': ((context) => SearchWiew()),
     '/settings': ((context) => SettingsView()),
     '/cards_buy': (context) => const CardsBuyViews(),
+    '/chat' : (context) => const ChatView(),
   };
 }

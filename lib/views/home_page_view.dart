@@ -17,7 +17,7 @@ class _HomePageviewState extends State<HomePageview> {
   int _selectedIndex = 0;
   bool isSwitched = false;
   final List<Widget> _widgetOptions = [
-     CardsBuyViews(),
+    CardsBuyViews(),
     SearchWiew(),
     FavoriteWidget(),
     ShoppingView(),
@@ -54,10 +54,10 @@ class _HomePageviewState extends State<HomePageview> {
               icon: const Icon(Icons.search, color: Colors.grey),
               label: tr("search_icon"),
             ),
-            BottomNavigationBarItem(activeIcon: const Icon(Icons.favorite, color: Colors.orange),
+            BottomNavigationBarItem(
+                activeIcon: const Icon(Icons.favorite, color: Colors.orange),
                 icon: const Icon(Icons.favorite, color: Colors.grey),
                 label: tr("favorite")),
-          
             BottomNavigationBarItem(
               icon: const Icon(Icons.shopping_bag, color: Colors.grey),
               label: tr("shopping"),
@@ -73,6 +73,20 @@ class _HomePageviewState extends State<HomePageview> {
               icon: const Icon(Icons.settings))
         ],
         title: Text(_tittleOptions.elementAt(_selectedIndex)),
+        centerTitle: true,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+                colors: [
+                  Color(0xFF3366FF),
+                  Color(0xFF00CCFF),
+                ],
+                begin: FractionalOffset(0.0, 0.0),
+                end: FractionalOffset(1.0, 0.0),
+                stops: [0.0, 1.0],
+                tileMode: TileMode.clamp),
+          ),
+        ),
       ),
       body: Container(
         child: _widgetOptions.elementAt(_selectedIndex),

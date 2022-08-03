@@ -12,6 +12,29 @@ class DataResponse {
 }
 
 class CardApi {
+  Future<DataResponse> fetchId(List<dynamic> ids, String language) async {
+    List<YugiOhCard> cards = [];
+    try {
+      var options = BaseOptions(
+        baseUrl: "https://db.ygoprodeck.com/api/v7/cardinfo.php?",
+        receiveTimeout: 10000, //
+        connectTimeout: 10000,
+        sendTimeout: 10000,
+      );
+      final Response response = await Dio(options).get(
+        "id=$ids${language == "en" ? "" : "&language=$language"}"
+      );
+      if (response.data["data"] != []) {
+        print(response.data);
+        response.data["data"]
+            .forEach((element) => cards.add(YugiOhCard.fromJsonApi(element)));
+      }
+      return DataResponse(cards, "no error");
+    } on DioError catch (e) {
+      return DataResponse([], handleDioError(e));
+    }
+  }
+
   Future<DataResponse> fetchType(String type, String language) async {
     Random random = Random();
     int randomNumber = random.nextInt(100);
@@ -25,7 +48,8 @@ class CardApi {
       );
       final Response response = await Dio(options).get(
         "type=$type${language == "en" ? "" : "&language=$language"}"
-                "&offset=$randomNumber" "&num=20",
+        "&offset=$randomNumber"
+        "&num=20",
       );
       if (response.data["data"] != []) {
         response.data["data"]

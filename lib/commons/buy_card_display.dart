@@ -28,25 +28,25 @@ class BuyCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey)),
+              SizedBox(
                   height: size.height * 0.08,
                   width: size.width * 0.37,
                   child: Text(card.name)),
-              Container(
+              Text("Price: ${card.card_prices}"),
+              Center(
+                child: Container(
                   decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey)),
-                  child: Text("Price: ${card.card_prices}")),
-              Container(
-                decoration:
-                    BoxDecoration(border: Border.all(color: Colors.grey)),
-                child: Row(
-                  children: [
-                    IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
-                    const Text("0"),
-                    IconButton(onPressed: () {}, icon: const Icon(Icons.add))
-                  ],
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.all(const Radius.circular(20))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
+                      const Text("0"),
+                      IconButton(
+                          onPressed: () {}, icon: const Icon(Icons.remove))
+                    ],
+                  ),
                 ),
               )
             ],

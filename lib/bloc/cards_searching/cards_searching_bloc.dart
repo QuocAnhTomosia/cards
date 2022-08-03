@@ -1,7 +1,10 @@
 // ignore: depend_on_referenced_packages
 // ignore_for_file: avoid_print
 
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
@@ -16,19 +19,48 @@ class CardsSearchingBloc
   CardsSearchingBloc() : super(CardsSearchingInitial()) {
     on<CardsSearchingEvent>((event, emit) {});
     on<CardSearchingStarted>((event, emit) async {
-      emit(CardSearchingLoading());
+      emit(const CardSearchingLoaded(data: []));
     });
     on<CardSearchingSubmit>((event, emit) async {
       // ignore: unrelated_type_equality_checks
       if (state != CardSearchingLoading) {
         emit(CardSearchingLoading());
-        final data = await CardApi().fetchData(event.name,event.language);
+        final data = await CardApi().fetchData(event.name, event.language);
         if (data.list.isNotEmpty) {
-
           emit(CardSearchingLoaded(data: data.list));
         } else {
           emit(CardSearchingError(respone: data.error));
-        }  
+        }
+      }
+    });
+    on<CardRandomSubit>(((event, emit) async {
+      if (state != CardSearchingLoading) {
+        emit(CardSearchingLoading());
+        List<int> randomList = [];
+        Random random = new Random();
+        
+        for (int i = 0; i < 20; i++) {
+          randomList.add(12 + random.nextInt(9000));
+        }
+        
+        final data = await CardApi().fetchId(randomList, tr("lang"));
+
+        if (data.list.isNotEmpty) {
+          emit(CardSearchingLoaded(data: data.list));
+        } else {
+          emit(const CardSearchingError(respone: "error"));
+        }
+      }
+    }));
+    on<CardSearchingIdSubmit>((event, emit) async {
+      if (state != CardSearchingLoading) {
+        emit(CardSearchingLoading());
+        final data = await CardApi().fetchId(event.list, event.language);
+        if (data.list.isNotEmpty) {
+          emit(CardSearchingLoaded(data: data.list));
+        } else {
+          emit(CardSearchingError(respone: data.error));
+        }
       }
     });
   }

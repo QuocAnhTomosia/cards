@@ -1,11 +1,12 @@
-
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:yugi_oh_cards/bloc/cards_searching/cards_searching_bloc.dart';
+import 'package:yugi_oh_cards/bloc/log_in/bloc/log_in_bloc.dart';
 import 'package:yugi_oh_cards/commons/card_display.dart';
+
+import '../bloc/log_in/bloc/log_in_state.dart';
 
 class SearchWiew extends StatelessWidget {
   SearchWiew({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class SearchWiew extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
+    context.read<CardsSearchingBloc>().add( CardSearchingStarted());
     return Column(
       children: <Widget>[
         Padding(
@@ -70,7 +71,13 @@ class SearchWiew extends StatelessWidget {
                     itemCount: state.data.length,
                     itemBuilder: (context, int index) => Padding(
                           padding: const EdgeInsets.only(top: 20),
-                          child: CardDisplay(card: state.data[index]),
+                          child: BlocBuilder<LogInBloc, LogInState>(
+                            builder: (context, logState) {
+                              return CardDisplay(
+                                  card: state.data[index],
+                                  myUser: logState.myUser!);
+                            },
+                          ),
                         )),
               );
             } else {

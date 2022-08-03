@@ -12,7 +12,22 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(title: Text(tr("settings"))),
+      appBar: AppBar(
+        title: Text(tr("settings")),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+                colors: [
+                  Color(0xFF3366FF),
+                  Color(0xFF00CCFF),
+                ],
+                begin: FractionalOffset(0.0, 0.0),
+                end: FractionalOffset(1.0, 0.0),
+                stops: [0.0, 1.0],
+                tileMode: TileMode.clamp),
+          ),
+        ),
+      ),
       body: Column(
         children: <Widget>[
           OpenContainer(
@@ -93,6 +108,7 @@ class SettingsView extends StatelessWidget {
                       ],
                     ),
                   )),
+                  
           BlocListener<LogInBloc, LogInState>(
             listener: ((context, state) {
               if (state.status == LogInStatus.init) {
@@ -100,9 +116,16 @@ class SettingsView extends StatelessWidget {
                     context, "/log_in", (route) => false);
               }
             }),
-            child: ElevatedButton(
-              child: const Text("Log out"),
-              onPressed: () {
+            child: InkWell(
+              child: SizedBox(
+                height: size.height * 0.1,
+                width: size.width,
+                child: const Text(
+                  "Log out",
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              onTap: () {
                 context.read<LogInBloc>().add(const LogInReset());
               },
             ),
