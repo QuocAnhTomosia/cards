@@ -8,6 +8,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
+import 'package:yugi_oh_cards/commons/constant.dart';
 import 'package:yugi_oh_cards/models/card_model.dart';
 import 'package:yugi_oh_cards/services/cards_api_services.dart';
 
@@ -36,13 +37,13 @@ class CardsSearchingBloc
     on<CardRandomSubit>(((event, emit) async {
       if (state != CardSearchingLoading) {
         emit(CardSearchingLoading());
-        List<int> randomList = [];
         Random random = new Random();
-        
-        for (int i = 0; i < 20; i++) {
-          randomList.add(12 + random.nextInt(9000));
+        List<int> randomList = [];
+        for (int i = 0; i < 6; i++) {
+          randomList.add(Constant()
+              .randomNumbers[random.nextInt(Constant().randomNumbers.length)]);
         }
-        
+        print(randomList.length);
         final data = await CardApi().fetchId(randomList, tr("lang"));
 
         if (data.list.isNotEmpty) {
@@ -57,6 +58,7 @@ class CardsSearchingBloc
         emit(CardSearchingLoading());
         final data = await CardApi().fetchId(event.list, event.language);
         if (data.list.isNotEmpty) {
+          print("length of data${data.list.length}");
           emit(CardSearchingLoaded(data: data.list));
         } else {
           emit(CardSearchingError(respone: data.error));

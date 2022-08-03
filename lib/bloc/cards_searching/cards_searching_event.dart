@@ -20,14 +20,12 @@ class CardSearchingIdSubmit extends CardsSearchingEvent {
   );
 
   @override
-  // TODO: implement props
   List<Object?> get props => [list, language];
 }
 
 class CardRandomSubit extends CardsSearchingEvent {
   const CardRandomSubit();
   @override
-  // TODO: implement props
   List<Object?> get props => throw UnimplementedError();
 }
 

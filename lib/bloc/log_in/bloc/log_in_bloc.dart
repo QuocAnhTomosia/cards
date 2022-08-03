@@ -28,20 +28,16 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
       String result =
           await FirebaseAuthService().emailSignIn(event.email, event.password);
       if (result != "some error happend") {
-        print(result);
-        print("it run 2 here");
         MyUser user = await FireStoreService().getUserByUid(result);
-        print(user.email);
         emit(LogInState(
             message: result, status: LogInStatus.success, myUser: user));
       } else {
         emit(LogInState(
-            message: "some error happend",
+            message: result,
             status: LogInStatus.error,
             myUser: Constant().errorUser));
       }
     } catch (e) {
-      print("error happend here");
       emit(LogInState(
           message: e.toString(),
           status: LogInStatus.error,

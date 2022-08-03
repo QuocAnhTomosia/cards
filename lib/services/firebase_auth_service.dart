@@ -11,8 +11,10 @@ class FirebaseAuthService {
     try {
       final UserCredential userCredential = await _instance
           .signInWithEmailAndPassword(email: email, password: password);
-     
+
       return await FireStoreService().getUser(email);
+    } on FirebaseAuthException catch (err) {
+      return err.code;
     } catch (e) {
       return "some error happend";
     }

@@ -37,7 +37,7 @@ class BuyCard extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.all(const Radius.circular(20))),
+                      borderRadius: const BorderRadius.all(Radius.circular(20))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

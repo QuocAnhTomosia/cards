@@ -85,6 +85,7 @@ class CardDisplay extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class FavoriteChange extends StatefulWidget {
   MyUser myUser;
   final int id;

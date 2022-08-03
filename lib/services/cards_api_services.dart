@@ -21,11 +21,14 @@ class CardApi {
         connectTimeout: 10000,
         sendTimeout: 10000,
       );
-      final Response response = await Dio(options).get(
-        "id=$ids${language == "en" ? "" : "&language=$language"}"
-      );
+      String idsString = ids
+          .toString()
+          .replaceAll(' ', '')
+          .replaceAll('[', '')
+          .replaceAll(']', '');
+      final Response response = await Dio(options)
+          .get("id=  $idsString${language == "en" ? "" : "&language=$language"}");
       if (response.data["data"] != []) {
-        print(response.data);
         response.data["data"]
             .forEach((element) => cards.add(YugiOhCard.fromJsonApi(element)));
       }

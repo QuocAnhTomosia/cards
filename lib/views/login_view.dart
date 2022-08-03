@@ -1,10 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:yugi_oh_cards/bloc/log_in/bloc/log_in_bloc.dart';
 import 'package:yugi_oh_cards/commons/password_input.dart';
 import 'package:yugi_oh_cards/commons/text_input.dart';
+import 'package:yugi_oh_cards/providers/data_provider.dart';
 
+import '../bloc/cards_searching/cards_searching_bloc.dart';
 import '../bloc/log_in/bloc/log_in_state.dart';
 
 class LoginView extends StatelessWidget {
@@ -43,10 +46,12 @@ class LoginView extends StatelessWidget {
             ),
             BlocListener<LogInBloc, LogInState>(
               listener: (context, state) {
-                if (state.status == LogInStatus.init) {
-
-                }
+                if (state.status == LogInStatus.init) {}
                 if (state.status == LogInStatus.success) {
+                  context
+                      .read<CardsSearchingBloc>()
+                      .add(const CardRandomSubit());
+                  
                   Navigator.pushNamedAndRemoveUntil(
                       context, "/home_page", (route) => false);
                 }
@@ -60,13 +65,12 @@ class LoginView extends StatelessWidget {
                               TextButton(
                                 onPressed: () {
                                   Navigator.pop(context, 'Cancel');
-                                  
                                 },
                                 child: const Text('Cancel'),
                               ),
                             ],
                           ));
-                          context.read<LogInBloc>().add(const LogInReset());
+                  context.read<LogInBloc>().add(const LogInReset());
                 }
               },
               child: ElevatedButton(

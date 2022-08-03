@@ -1,9 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
+import 'package:yugi_oh_cards/bloc/log_in/bloc/log_in_bloc.dart';
+import 'package:yugi_oh_cards/providers/data_provider.dart';
 import 'package:yugi_oh_cards/views/cards_buy_view.dart';
 import 'package:yugi_oh_cards/views/favourite_view.dart';
 import 'package:yugi_oh_cards/views/search_view.dart';
 import 'package:yugi_oh_cards/views/shopping_view.dart';
+
+import '../bloc/cards_searching/cards_searching_bloc.dart';
 
 // Khong modify constant de cho easy localize rebuild
 class HomePageview extends StatefulWidget {
@@ -14,6 +20,7 @@ class HomePageview extends StatefulWidget {
 }
 
 class _HomePageviewState extends State<HomePageview> {
+  
   int _selectedIndex = 0;
   bool isSwitched = false;
   final List<Widget> _widgetOptions = [
@@ -23,7 +30,7 @@ class _HomePageviewState extends State<HomePageview> {
     ShoppingView(),
     //SettingsView(),
   ];
-
+  
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -32,7 +39,7 @@ class _HomePageviewState extends State<HomePageview> {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> _tittleOptions = [
+    final List<String> tittleOptions = [
       tr('home'),
       tr("search_title"),
       tr("favorite"),
@@ -72,7 +79,7 @@ class _HomePageviewState extends State<HomePageview> {
               },
               icon: const Icon(Icons.settings))
         ],
-        title: Text(_tittleOptions.elementAt(_selectedIndex)),
+        title: Text(tittleOptions.elementAt(_selectedIndex)),
         centerTitle: true,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
