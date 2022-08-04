@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yugi_oh_cards/models/card_model.dart';
 import 'package:yugi_oh_cards/models/user_model.dart';
 
+import '../bloc/favorites/bloc/favorites_bloc.dart';
+import '../bloc/favorites/bloc/favorites_state.dart';
 import '../bloc/log_in/bloc/log_in_bloc.dart';
 import '../bloc/log_in/bloc/log_in_state.dart';
 
@@ -72,7 +74,9 @@ class CardDisplay extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 10),
               child: ElevatedButton(
-                  onPressed: () {}, child: const Icon(Icons.shopping_basket)),
+                  onPressed: () {
+                    
+                  }, child: const Icon(Icons.shopping_basket)),
             ),
             FavoriteChange(
               id: card.id,
@@ -102,39 +106,38 @@ class FavoriteChange extends StatefulWidget {
 class _FavoriteChangeState extends State<FavoriteChange> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10.0),
-      child: BlocBuilder<LogInBloc, LogInState>(
-        builder: (context, state) {
-          return ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  primary: Colors.white, onPrimary: Colors.blue),
-              onPressed: () {
-                setState(() {
-                  if (widget.myUser.favorites.contains(widget.id)) {
-                    widget.myUser.favorites.remove(widget.id);
-                    context.read<LogInBloc>().add(LogInChangeInfo(
-                        field: "favorites", data: widget.myUser.favorites));
-                  }
-                  else
-                  {
-                     widget.myUser.favorites.add(widget.id);
-                    context.read<LogInBloc>().add(LogInChangeInfo(
-                        field: "favorites", data: widget.myUser.favorites));
-                  }
-                });
-              },
-              child: !widget.myUser.favorites.contains(widget.id)
-                  ? const Icon(
-                      Icons.favorite_outline,
-                      color: Colors.red,
-                    )
-                  : const Icon(
-                      Icons.favorite,
-                      color: Colors.red,
-                    ));
+    return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            primary: Colors.white, onPrimary: Colors.blue),
+        onPressed: () {
+          setState(() {
+            if (widget.myUser.favorites.contains(widget.id)) {
+              widget.myUser.favorites.remove(widget.id);
+              context.read<LogInBloc>().add(LogInChangeInfo(
+                field: "favorites", data: widget.myUser.favorites));
+            context
+                .read<FavoritesBloc>()
+                .add(FavoritesLoad(ids: widget.myUser.favorites));
+            } else {
+              widget.myUser.favorites.add(widget.id);
+              context.read<LogInBloc>().add(LogInChangeInfo(
+                field: "favorites", data: widget.myUser.favorites));
+            context
+                .read<FavoritesBloc>()
+                .add(FavoritesLoad(ids: widget.myUser.favorites));
+            }
+            
+            
+          });
         },
-      ),
-    );
+        child: !widget.myUser.favorites.contains(widget.id)
+            ? const Icon(
+                Icons.favorite_outline,
+                color: Colors.red,
+              )
+            : const Icon(
+                Icons.favorite,
+                color: Colors.red,
+              ));
   }
 }

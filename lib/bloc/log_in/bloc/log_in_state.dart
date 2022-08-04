@@ -37,5 +37,5 @@ class LogInState extends Equatable {
       : this(message: uid, myUser: myUser, status: LogInStatus.success);
 
   @override
-  List<Object?> get props => [message, status,myUser];
+  List<Object?> get props => [message, status, myUser];
 }

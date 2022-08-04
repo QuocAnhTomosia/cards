@@ -2,14 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:yugi_oh_cards/bloc/log_in/bloc/log_in_bloc.dart';
-import 'package:yugi_oh_cards/providers/data_provider.dart';
 import 'package:yugi_oh_cards/views/cards_buy_view.dart';
 import 'package:yugi_oh_cards/views/favourite_view.dart';
 import 'package:yugi_oh_cards/views/search_view.dart';
 import 'package:yugi_oh_cards/views/shopping_view.dart';
 
-import '../bloc/cards_searching/cards_searching_bloc.dart';
 
 // Khong modify constant de cho easy localize rebuild
 class HomePageview extends StatefulWidget {

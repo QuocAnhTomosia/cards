@@ -15,7 +15,16 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
   LogInBloc() : super(LogInState.initState()) {
     on<LogInEvent>((event, emit) {});
     on<LogInSubmit>(_onSubmit);
-    on<LogInChangeInfo>(_onChangeInfo);
+    on<LogInChangeInfo>((event, emit) async {
+      {
+    if (state.status == LogInStatus.success) {
+      FireStoreService().updateInfo(state.message!, event.field, event.data);
+      MyUser user = await FireStoreService().getUserByUid(state.message!);
+      emit(LogInState(
+          message: state.message!, status: LogInStatus.success, myUser: user));
+    }
+  }
+    });
     on<LogInReset>(
       (event, emit) {
         emit(const LogInState(message: "", status: LogInStatus.init));
@@ -45,7 +54,7 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
     }
   }
 
-  FutureOr<void> _onChangeInfo(
+ _onChangeInfo(
       LogInChangeInfo event, Emitter<LogInState> emit) {
     if (state.status == LogInStatus.success) {
       FireStoreService().updateInfo(state.message!, event.field, event.data);
