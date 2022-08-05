@@ -4,6 +4,7 @@ import 'package:yugi_oh_cards/services/cards_api_services.dart';
 
 enum ShoppingState { init, loading, loaded, error, buy }
 
+// ignore: must_be_immutable
 class ShoppingCartState extends Equatable {
   Map<dynamic, dynamic> orderList;
   DataResponse cardsDetails;
@@ -15,7 +16,7 @@ class ShoppingCartState extends Equatable {
   );
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [orderList,cardsDetails,shoppingState];
 
   ShoppingCartState.initState()
       : this({}, DataResponse([], 'init'), ShoppingState.init);
@@ -24,9 +25,9 @@ class ShoppingCartState extends Equatable {
       : this({}, DataResponse([], 'loading'), ShoppingState.loading);
   ShoppingCartState.loaded(
       Map<dynamic, dynamic> orderList, DataResponse cardsDetails)
-      : this(orderList, cardsDetails, ShoppingState.loading);
+      : this(orderList, cardsDetails, ShoppingState.loaded);
   ShoppingCartState.loadError()
       : this({}, DataResponse([], 'error'), ShoppingState.error);
   ShoppingCartState.loadBuy()
-      : this({}, DataResponse([], 'loading'), ShoppingState.buy);
+      : this({}, DataResponse([], 'buy'), ShoppingState.buy);
 }

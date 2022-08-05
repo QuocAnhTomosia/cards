@@ -1,9 +1,10 @@
+import 'dart:developer';
+
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:yugi_oh_cards/bloc/favorites/bloc/favorites_bloc.dart';
-import 'package:yugi_oh_cards/bloc/log_in/bloc/log_in_bloc.dart';
 
 import '../bloc/favorites/bloc/favorites_state.dart';
 
@@ -16,8 +17,11 @@ class FavoriteWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return BlocBuilder<FavoritesBloc, FavoritesState>(
-        builder: (context, state) {
+        buildWhen: (previous, current) {
+      return previous != current;
+    }, builder: (context, state) {
       if (state.status == FavoritesStatus.init) {
+        (state.status);
         return const Center(
           child: SpinKitFadingCircle(
             color: Colors.blue,
@@ -25,6 +29,8 @@ class FavoriteWidget extends StatelessWidget {
           ),
         );
       } else if (state.status == FavoritesStatus.loading) {
+        log(state.status.toString());
+
         return const Center(
           child: SpinKitFadingCircle(
             color: Colors.blue,
@@ -32,6 +38,9 @@ class FavoriteWidget extends StatelessWidget {
           ),
         );
       } else if (state.status == FavoritesStatus.loaded) {
+        log('it run 2 builder');
+        log(state.status.toString());
+
         return ListView.builder(
             itemCount: state.data!.list.length,
             itemBuilder: (context, index) {
@@ -64,9 +73,7 @@ class FavoriteWidget extends StatelessWidget {
                                           title: Text("Dialog"),
                                           actions: [
                                             TextButton(
-                                              
                                               onPressed: () {
-
                                                 Navigator.pop(
                                                     context, 'Cancel');
                                               },
@@ -113,10 +120,11 @@ class FavoriteWidget extends StatelessWidget {
               );
             });
       } else {
+
         return const Center(
-          child: SpinKitFadingCircle(
-            color: Colors.blue,
-            size: 50.0,
+          child: Icon(
+            Icons.error,
+            size: 100,
           ),
         );
       }

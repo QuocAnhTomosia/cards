@@ -4,6 +4,7 @@ import 'package:yugi_oh_cards/services/cards_api_services.dart';
 
 enum StatusCode { init, loaded, loading, error }
 
+// ignore: must_be_immutable
 class HomeState extends Equatable {
   DataResponse? data;
   StatusCode? statusCode;

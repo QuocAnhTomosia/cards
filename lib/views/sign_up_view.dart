@@ -6,7 +6,6 @@ import 'package:yugi_oh_cards/bloc/sign_up/bloc/user_sign_up_bloc.dart';
 import 'package:yugi_oh_cards/commons/constant.dart';
 import 'package:yugi_oh_cards/commons/password_input.dart';
 import 'package:yugi_oh_cards/commons/text_input.dart';
-import 'dart:async';
 import 'dart:io';
 
 import 'package:yugi_oh_cards/cubit/image_cubit.dart';
@@ -82,7 +81,7 @@ class SignUpView extends StatelessWidget {
         child: Column(
           children: <Widget>[
             SizedBox(height: size.height * 0.05),
-            AvatarPicker(),
+            const AvatarPicker(),
             TextInputWidget(
               text: "Enter your name",
               controller: _name,

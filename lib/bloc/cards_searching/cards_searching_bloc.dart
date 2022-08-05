@@ -37,7 +37,7 @@ class CardsSearchingBloc
     on<CardRandomSubit>(((event, emit) async {
       if (state != CardSearchingLoading) {
         emit(CardSearchingLoading());
-        Random random = new Random();
+        Random random = Random();
         List<int> randomList = [];
         for (int i = 0; i < 6; i++) {
           randomList.add(Constant()

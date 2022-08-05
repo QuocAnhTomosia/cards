@@ -1,14 +1,13 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yugi_oh_cards/bloc/shopping_cart/bloc/shopping_cart_bloc.dart';
 
 import 'package:yugi_oh_cards/models/card_model.dart';
 import 'package:yugi_oh_cards/models/user_model.dart';
 
 import '../bloc/favorites/bloc/favorites_bloc.dart';
-import '../bloc/favorites/bloc/favorites_state.dart';
 import '../bloc/log_in/bloc/log_in_bloc.dart';
-import '../bloc/log_in/bloc/log_in_state.dart';
 
 class CardDisplay extends StatelessWidget {
   final YugiOhCard card;
@@ -75,8 +74,18 @@ class CardDisplay extends StatelessWidget {
               padding: const EdgeInsets.only(right: 10),
               child: ElevatedButton(
                   onPressed: () {
-                    
-                  }, child: const Icon(Icons.shopping_basket)),
+                    if (myUser.orderList[card.id.toString()] == null) {
+                      myUser.orderList[card.id.toString()] = 1;
+                    } else {
+                      myUser.orderList[card.id.toString()] += 1;
+                    }
+                    context.read<LogInBloc>().add(LogInChangeInfo(
+                        field: "orderList", data: myUser.orderList));
+                    context
+                        .read<ShoppingCartBloc>()
+                        .add(ShoppingCartLoad(myUser.orderList));
+                  },
+                  child: const Icon(Icons.shopping_basket)),
             ),
             FavoriteChange(
               id: card.id,
@@ -114,20 +123,18 @@ class _FavoriteChangeState extends State<FavoriteChange> {
             if (widget.myUser.favorites.contains(widget.id)) {
               widget.myUser.favorites.remove(widget.id);
               context.read<LogInBloc>().add(LogInChangeInfo(
-                field: "favorites", data: widget.myUser.favorites));
-            context
-                .read<FavoritesBloc>()
-                .add(FavoritesLoad(ids: widget.myUser.favorites));
+                  field: "favorites", data: widget.myUser.favorites));
+              context
+                  .read<FavoritesBloc>()
+                  .add(FavoritesLoad(ids: widget.myUser.favorites));
             } else {
               widget.myUser.favorites.add(widget.id);
               context.read<LogInBloc>().add(LogInChangeInfo(
-                field: "favorites", data: widget.myUser.favorites));
-            context
-                .read<FavoritesBloc>()
-                .add(FavoritesLoad(ids: widget.myUser.favorites));
+                  field: "favorites", data: widget.myUser.favorites));
+              context
+                  .read<FavoritesBloc>()
+                  .add(FavoritesLoad(ids: widget.myUser.favorites));
             }
-            
-            
           });
         },
         child: !widget.myUser.favorites.contains(widget.id)

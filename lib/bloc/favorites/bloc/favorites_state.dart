@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
@@ -6,6 +5,7 @@ import 'package:yugi_oh_cards/services/cards_api_services.dart';
 
 enum FavoritesStatus { init, loading, loaded, error }
 
+// ignore: must_be_immutable
 class FavoritesState extends Equatable {
   List<dynamic>? favorites;
   DataResponse? data;

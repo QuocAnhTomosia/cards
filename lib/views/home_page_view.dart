@@ -1,7 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:yugi_oh_cards/views/cards_buy_view.dart';
 import 'package:yugi_oh_cards/views/favourite_view.dart';
 import 'package:yugi_oh_cards/views/search_view.dart';
@@ -23,7 +21,7 @@ class _HomePageviewState extends State<HomePageview> {
   final List<Widget> _widgetOptions = [
     CardsBuyViews(),
     SearchWiew(),
-    FavoriteWidget(),
+    const FavoriteWidget(),
     ShoppingView(),
     //SettingsView(),
   ];
@@ -92,8 +90,10 @@ class _HomePageviewState extends State<HomePageview> {
           ),
         ),
       ),
-      body: Container(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      body: IndexedStack(
+       index: _selectedIndex,
+          children: _widgetOptions,
+        
       ),
     );
   }

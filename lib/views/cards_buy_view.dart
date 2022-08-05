@@ -14,6 +14,10 @@ class CardsBuyViews extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
+    buildWhen: (previous, current) {
+      
+      return previous != current;
+    },
         builder: ((context, state) {
       if (state.statusCode == StatusCode.loading) {
         return const Center(

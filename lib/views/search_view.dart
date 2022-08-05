@@ -15,7 +15,7 @@ class SearchWiew extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    context.read<CardsSearchingBloc>().add( CardSearchingStarted());
+    context.read<CardsSearchingBloc>().add(CardSearchingStarted());
     return Column(
       children: <Widget>[
         Padding(
@@ -72,6 +72,9 @@ class SearchWiew extends StatelessWidget {
                     itemBuilder: (context, int index) => Padding(
                           padding: const EdgeInsets.only(top: 20),
                           child: BlocBuilder<LogInBloc, LogInState>(
+                            buildWhen: (previous, current) {
+                              return previous != current;
+                            },
                             builder: (context, logState) {
                               return CardDisplay(
                                   card: state.data[index],
