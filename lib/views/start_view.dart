@@ -10,7 +10,7 @@ class StartView extends StatelessWidget {
       floatingActionButton: IconButton(
         onPressed: () {
           Navigator.of(context).pushNamedAndRemoveUntil(
-              '/search', (Route<dynamic> route) => false);
+              '/log_in', (Route<dynamic> route) => false);
         },
         icon: const Icon(Icons.skip_next),
       ),
@@ -21,13 +21,13 @@ class StartView extends StatelessWidget {
         controller: controller,
         children: const <Widget>[
           Center(
-            child: Text('First Page'),
+            child: Text('First Page',style:TextStyle(fontFamily:'Roboto')),
           ),
           Center(
-            child: Text('Second Page'),
+            child: Text('Second Page',style:TextStyle(fontFamily:'Roboto')),
           ),
           Center(
-            child: Text('Third Page'),
+            child: Text('Third Page',style:TextStyle(fontFamily:'Roboto')),
           )
         ],
       ),
