@@ -25,7 +25,7 @@ class FireStoreService {
         .get();
     if (checkUser.docs.isEmpty || checkUser.docs[0].data()["email"] != email) {
       try {
-        UserCredential userCredential =
+        
             await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: password,

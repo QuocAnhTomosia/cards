@@ -1,15 +1,19 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:yugi_oh_cards/bloc/sign_up/bloc/user_sign_up_bloc.dart';
-import 'package:yugi_oh_cards/commons/constant.dart';
-import 'package:yugi_oh_cards/commons/password_input.dart';
-import 'package:yugi_oh_cards/commons/text_input.dart';
+import 'package:yugi_oh_cards/components/constant.dart';
+import 'package:yugi_oh_cards/components/password_input.dart';
+import 'package:yugi_oh_cards/components/text_input.dart';
 import 'dart:io';
 
 import 'package:yugi_oh_cards/cubit/image_cubit.dart';
 
+// sua thanh Inherited
 class AvatarPicker extends StatefulWidget {
   const AvatarPicker({Key? key}) : super(key: key);
 
@@ -20,20 +24,29 @@ class AvatarPicker extends StatefulWidget {
 class _AvatarPickerState extends State<AvatarPicker> {
   XFile? imageFile;
   //imageError de xu ly error
-  dynamic _pickImageError;
+  
   _getFromGallery() async {
-    try {
-      final imagePicker =
-          await ImagePicker().pickImage(source: ImageSource.gallery);
-      // ignore: use_build_context_synchronously, invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
-      context.read<ImageCubit>().emit(File(imagePicker!.path));
-      setState(() {
-        imageFile = imagePicker;
-      });
-    } catch (e) {
-      setState(() {
-        _pickImageError = e;
-      });
+    if (Platform.isAndroid) {
+      PermissionStatus permissions = await Permission.storage.request();
+
+      if (permissions.isGranted) {
+        
+          final imagePicker =
+              await ImagePicker().pickImage(source: ImageSource.gallery);
+          // ignore: use_build_context_synchronously, invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
+          context.read<ImageCubit>().emit(File(imagePicker!.path));
+          setState(() {
+            imageFile = imagePicker;
+          });
+        
+      } else if (permissions.isDenied) {
+        log("Permission isDenied");
+
+      }  else if (permissions.isPermanentlyDenied) {
+        openAppSettings();
+      } 
+    } else {
+      PermissionStatus permissions = await Permission.photos.request();
     }
   }
 
@@ -110,9 +123,8 @@ class SignUpView extends StatelessWidget {
                       password: _password.text,
                       phoneNumber: _phone.text,
                       image: File(context.read<ImageCubit>().state.path)));
-                  
                 }),
-                child: Text(tr("submit")),
+                child: Center(child: Text(tr("submit"))),
               ),
               listener: (context, state) {
                 if (state is UserSignUpSubmitted) {

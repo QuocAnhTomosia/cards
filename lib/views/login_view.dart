@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,8 +7,9 @@ import 'package:yugi_oh_cards/bloc/favorites/bloc/favorites_bloc.dart';
 import 'package:yugi_oh_cards/bloc/home_bloc/bloc/home_event.dart';
 import 'package:yugi_oh_cards/bloc/log_in/bloc/log_in_bloc.dart';
 import 'package:yugi_oh_cards/bloc/shopping_cart/bloc/shopping_cart_bloc.dart';
-import 'package:yugi_oh_cards/commons/password_input.dart';
-import 'package:yugi_oh_cards/commons/text_input.dart';
+import 'package:yugi_oh_cards/components/constant.dart';
+import 'package:yugi_oh_cards/components/password_input.dart';
+import 'package:yugi_oh_cards/components/text_input.dart';
 
 import '../bloc/home_bloc/bloc/home_bloc.dart';
 import '../bloc/log_in/bloc/log_in_state.dart';
@@ -19,6 +22,7 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          flexibleSpace: Constant().decoration,
           title: const Text("Login "),
           actions: [
             IconButton(
@@ -56,6 +60,7 @@ class LoginView extends StatelessWidget {
                   context
                       .read<ShoppingCartBloc>()
                       .add(ShoppingCartLoad(state.myUser!.orderList));
+                  log(context.read<FavoritesBloc>().state.favorites.toString());
                   Navigator.pushNamedAndRemoveUntil(
                       context, "/home_page", (route) => false);
                 }
@@ -83,7 +88,7 @@ class LoginView extends StatelessWidget {
                         email: _emailController.text,
                         password: _passwordController.text));
                   },
-                  child: SizedBox(width: 60, child: Text(tr("submit")))),
+                  child: SizedBox(width: 60, child: Center(child: Text(tr("submit"))))),
             ),
           ],
         ));

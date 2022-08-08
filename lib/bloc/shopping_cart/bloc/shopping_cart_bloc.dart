@@ -10,7 +10,20 @@ part 'shopping_cart_event.dart';
 class ShoppingCartBloc extends Bloc<ShoppingCartEvent, ShoppingCartState> {
   ShoppingCartBloc() : super(ShoppingCartState.initState()) {
     on<ShoppingCartEvent>((event, emit) {});
-    on<ShoppingCartBuy>((event, emit) {});
+    on<ShoppingCartBuy>((event, emit) {
+      if (state.shoppingState == ShoppingState.loaded) {
+        double money = 0;
+        for (int i = 0; i < state.cardsDetails.list.length; i++) {
+          money += state.orderList[state.cardsDetails.list[i].id.toString()] *
+              double.parse(state.cardsDetails.list[i].card_prices);
+        }
+        state.orderList = {};
+        FireStoreService().updateInfo(event.uid, "orderList", {});
+        FireStoreService().updateInfo(event.uid, "favorites", []);
+        state.cardsDetails = DataResponse([], "no error");
+        emit(ShoppingCartState.loaded(const {}, DataResponse([], "no error")));
+      }
+    });
     on<ShoppingCartDeleteItem>((event, emit) async {
       DataResponse data =
           await CardApi().fetchId(event.orderList.keys.toList(), tr("lang"));

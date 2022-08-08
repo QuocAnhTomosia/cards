@@ -70,7 +70,7 @@ class FavoriteWidget extends StatelessWidget {
                                       context: context,
                                       builder: (context) {
                                         return AlertDialog(
-                                          title: Text("Dialog"),
+                                          title: const Text("Dialog"),
                                           actions: [
                                             TextButton(
                                               onPressed: () {

@@ -9,6 +9,8 @@ import 'package:yugi_oh_cards/models/user_model.dart';
 import '../bloc/favorites/bloc/favorites_bloc.dart';
 import '../bloc/log_in/bloc/log_in_bloc.dart';
 
+
+ // sua lai Inherited Widget
 class CardDisplay extends StatelessWidget {
   final YugiOhCard card;
   final MyUser myUser;

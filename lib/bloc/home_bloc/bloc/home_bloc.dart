@@ -2,9 +2,10 @@ import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:yugi_oh_cards/components/constant.dart';
 import 'package:yugi_oh_cards/services/cards_api_services.dart';
 
-import '../../../commons/constant.dart';
+
 import 'home_event.dart';
 import 'home_state.dart';
 

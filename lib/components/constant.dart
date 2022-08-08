@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:yugi_oh_cards/models/user_model.dart';
 
 class Constant {
@@ -10,6 +11,18 @@ class Constant {
       password: "err",
       favorites: [],
       orderList: {});
+  Widget decoration =  Container(decoration: 
+  const BoxDecoration(
+    gradient: LinearGradient(
+        colors: [
+          Color(0xFF3366FF),
+          Color(0xFF00CCFF),
+        ],
+        begin: FractionalOffset(0.0, 0.0),
+        end: FractionalOffset(1.0, 0.0),
+        stops: [0.0, 1.0],
+        tileMode: TileMode.clamp),
+  ));
   List<int> randomNumbers = [
     34541863,
     64163367,

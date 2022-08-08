@@ -8,7 +8,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
-import 'package:yugi_oh_cards/commons/constant.dart';
+import 'package:yugi_oh_cards/components/constant.dart';
 import 'package:yugi_oh_cards/models/card_model.dart';
 import 'package:yugi_oh_cards/services/cards_api_services.dart';
 

@@ -4,7 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:yugi_oh_cards/bloc/cards_searching/cards_searching_bloc.dart';
 import 'package:yugi_oh_cards/bloc/log_in/bloc/log_in_bloc.dart';
-import 'package:yugi_oh_cards/commons/card_display.dart';
+import 'package:yugi_oh_cards/components/card_display.dart';
+import 'package:yugi_oh_cards/components/fade_widget.dart';
 
 import '../bloc/log_in/bloc/log_in_state.dart';
 
@@ -76,15 +77,17 @@ class SearchWiew extends StatelessWidget {
                               return previous != current;
                             },
                             builder: (context, logState) {
-                              return CardDisplay(
-                                  card: state.data[index],
-                                  myUser: logState.myUser!);
+                              return FadeWidget(
+                                childWidget: CardDisplay(
+                                    card: state.data[index],
+                                    myUser: logState.myUser!),
+                              );
                             },
                           ),
                         )),
               );
             } else {
-              return const Text("Hello");
+              return const Text("Hello",style:TextStyle(fontFamily:'Roboto'));
             }
           }),
         ),

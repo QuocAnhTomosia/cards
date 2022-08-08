@@ -39,10 +39,15 @@ class ShoppingCartDeleteItem extends ShoppingCartEvent {
   List<Object> get props => [itemId, orderList];
 }
 
+
 class ShoppingCartBuy extends ShoppingCartEvent {
-  const ShoppingCartBuy();
+  final String uid;
+
+  const ShoppingCartBuy(
+    {required this.uid,}
+  );
   @override
-  List<Object> get props => [];
+  List<Object> get props => [uid];
 }
 
 // ignore: must_be_immutable

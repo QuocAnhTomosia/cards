@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:yugi_oh_cards/commons/constant.dart';
+import 'package:yugi_oh_cards/components/constant.dart';
 import 'package:yugi_oh_cards/models/user_model.dart';
 
 enum LogInStatus { init, error, success }

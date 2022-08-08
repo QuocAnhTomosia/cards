@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:yugi_oh_cards/bloc/log_in/bloc/log_in_state.dart';
-import 'package:yugi_oh_cards/commons/constant.dart';
+import 'package:yugi_oh_cards/components/constant.dart';
 import 'package:yugi_oh_cards/services/firebase_auth_service.dart';
 import 'package:yugi_oh_cards/services/firebase_firestore_service.dart';
 
