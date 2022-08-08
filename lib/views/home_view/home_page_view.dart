@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:yugi_oh_cards/views/cards_buy_view.dart';
-import 'package:yugi_oh_cards/views/favourite_view.dart';
-import 'package:yugi_oh_cards/views/search_view.dart';
-import 'package:yugi_oh_cards/views/shopping_view.dart';
+import 'package:yugi_oh_cards/views/home_view/cards_buy_view.dart';
+import 'package:yugi_oh_cards/views/favorite_view/favourite_view.dart';
+import 'package:yugi_oh_cards/views/search_view/search_view.dart';
+import 'package:yugi_oh_cards/views/shopping_view/shopping_view.dart';
 
 
 // Khong modify constant de cho easy localize rebuild

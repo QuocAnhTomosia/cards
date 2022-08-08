@@ -13,62 +13,9 @@ import 'dart:io';
 
 import 'package:yugi_oh_cards/cubit/image_cubit.dart';
 
+import 'components/avatar_picker.dart';
+
 // sua thanh Inherited
-class AvatarPicker extends StatefulWidget {
-  const AvatarPicker({Key? key}) : super(key: key);
-
-  @override
-  State<AvatarPicker> createState() => _AvatarPickerState();
-}
-
-class _AvatarPickerState extends State<AvatarPicker> {
-  XFile? imageFile;
-  //imageError de xu ly error
-  
-  _getFromGallery() async {
-    if (Platform.isAndroid) {
-      PermissionStatus permissions = await Permission.storage.request();
-
-      if (permissions.isGranted) {
-        
-          final imagePicker =
-              await ImagePicker().pickImage(source: ImageSource.gallery);
-          // ignore: use_build_context_synchronously, invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
-          context.read<ImageCubit>().emit(File(imagePicker!.path));
-          setState(() {
-            imageFile = imagePicker;
-          });
-        
-      } else if (permissions.isDenied) {
-        log("Permission isDenied");
-
-      }  else if (permissions.isPermanentlyDenied) {
-        openAppSettings();
-      } 
-    } else {
-      PermissionStatus permissions = await Permission.photos.request();
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CircleAvatar(
-          radius: 50, // Image radius
-          backgroundImage: imageFile != null
-              ? FileImage(
-                  File(imageFile!.path),
-                ) as ImageProvider
-              : AssetImage(Constant().avatarImage),
-        ),
-        ElevatedButton(
-            onPressed: _getFromGallery,
-            child: const Text("Choose your Avatar")),
-      ],
-    );
-  }
-}
 
 class SignUpView extends StatelessWidget {
   SignUpView({Key? key}) : super(key: key);
@@ -82,6 +29,8 @@ class SignUpView extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: Constant().decoration,
+        title: Text(tr("Sign up")),centerTitle: true,
         actions: [
           IconButton(
               onPressed: () {

@@ -11,8 +11,8 @@ import 'package:yugi_oh_cards/components/constant.dart';
 import 'package:yugi_oh_cards/components/password_input.dart';
 import 'package:yugi_oh_cards/components/text_input.dart';
 
-import '../bloc/home_bloc/bloc/home_bloc.dart';
-import '../bloc/log_in/bloc/log_in_state.dart';
+import '../../bloc/home_bloc/bloc/home_bloc.dart';
+import '../../bloc/log_in/bloc/log_in_state.dart';
 
 class LoginView extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
@@ -88,7 +88,8 @@ class LoginView extends StatelessWidget {
                         email: _emailController.text,
                         password: _passwordController.text));
                   },
-                  child: SizedBox(width: 60, child: Center(child: Text(tr("submit"))))),
+                  child: SizedBox(
+                      width: 60, child: Center(child: Text(tr("submit"))))),
             ),
           ],
         ));

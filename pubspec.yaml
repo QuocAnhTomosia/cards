@@ -57,6 +57,7 @@ dependencies:
   flutter_native_splash: ^2.2.7
   permission_handler: ^10.0.0
   app_settings: ^4.1.8
+  image_downloader: ^0.31.0
 
 dev_dependencies:
   flutter_test:

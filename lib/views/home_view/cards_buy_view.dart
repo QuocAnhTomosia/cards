@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:yugi_oh_cards/commons/fade_widget.dart';
-import 'package:yugi_oh_cards/components/card_display.dart';
 
-import '../bloc/home_bloc/bloc/home_bloc.dart';
-import '../bloc/home_bloc/bloc/home_state.dart';
-import '../bloc/log_in/bloc/log_in_bloc.dart';
-import '../bloc/log_in/bloc/log_in_state.dart';
+import 'package:yugi_oh_cards/components/card_display.dart';
+import 'package:yugi_oh_cards/components/fade_widget.dart';
+import '../../bloc/home_bloc/bloc/home_bloc.dart';
+import '../../bloc/home_bloc/bloc/home_state.dart';
+import '../../bloc/log_in/bloc/log_in_bloc.dart';
+import '../../bloc/log_in/bloc/log_in_state.dart';
 
 class CardsBuyViews extends StatelessWidget {
   const CardsBuyViews({Key? key}) : super(key: key);

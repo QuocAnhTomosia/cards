@@ -1,12 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:yugi_oh_cards/bloc/favorites/bloc/favorites_bloc.dart';
 import 'package:yugi_oh_cards/bloc/shopping_cart/bloc/shopping_cart_bloc.dart';
 
-import '../bloc/log_in/bloc/log_in_bloc.dart';
-import '../bloc/shopping_cart/bloc/shopping_cart_state.dart';
+import '../../bloc/log_in/bloc/log_in_bloc.dart';
+import '../../bloc/shopping_cart/bloc/shopping_cart_state.dart';
 
 class ShoppingView extends StatelessWidget {
   const ShoppingView({Key? key}) : super(key: key);
@@ -55,6 +54,7 @@ class ShoppingView extends StatelessWidget {
                                   children: [
                                     IconButton(
                                         onPressed: () {
+                                          // viet lai function
                                           context.read<ShoppingCartBloc>().add(
                                               ShoppingCartChangeItem(
                                                   isAdd: true,

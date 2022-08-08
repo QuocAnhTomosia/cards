@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:yugi_oh_cards/bloc/favorites/bloc/favorites_bloc.dart';
+import 'package:yugi_oh_cards/components/download_image.dart';
 
-import '../bloc/favorites/bloc/favorites_state.dart';
+import '../../bloc/favorites/bloc/favorites_state.dart';
 
 class FavoriteWidget extends StatelessWidget {
   const FavoriteWidget({
@@ -69,23 +70,7 @@ class FavoriteWidget extends StatelessWidget {
                                   showDialog(
                                       context: context,
                                       builder: (context) {
-                                        return AlertDialog(
-                                          title: const Text("Dialog"),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(
-                                                    context, 'Cancel');
-                                              },
-                                              child: const Text('Cancel'),
-                                            ),
-                                            TextButton(
-                                              onPressed: () => Navigator.pop(
-                                                  context, 'Cancel'),
-                                              child: const Text('Cancel'),
-                                            ),
-                                          ],
-                                        );
+                                        return MyDiaLog(img_link: state.data!.list[index].image_url, parentContext: context);
                                       });
                                 },
                                 child: SizedBox(
@@ -120,7 +105,6 @@ class FavoriteWidget extends StatelessWidget {
               );
             });
       } else {
-
         return const Center(
           child: Icon(
             Icons.error,
