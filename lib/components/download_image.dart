@@ -24,21 +24,15 @@ class MyDiaLog extends StatelessWidget {
         ),
         TextButton(
           onPressed: () async {
-            
-              // Saved with this method.
-              var imageId = await ImageDownloader.downloadImage(imgLink);
+            // Saved with this method.
+            var imageId = await ImageDownloader.downloadImage(imgLink);
 
-              if (imageId == null) {
-                return;
-              }
-              // Below is a method of obtaining saved image information.
-              var fileName = await ImageDownloader.findName(imageId);
-              var path = await ImageDownloader.findPath(imageId);
-              var size = await ImageDownloader.findByteSize(imageId);
-              var mimeType = await ImageDownloader.findMimeType(imageId);
-              // ignore: use_build_context_synchronously
-              Navigator.pop(context, 'Cancel');
-            
+            if (imageId == null) {
+              return;
+            }
+            // Below is a method of obtaining saved image information.
+            // ignore: use_build_context_synchronously
+            Navigator.pop(context, 'Cancel');
           },
           child: const Text('Download'),
         ),

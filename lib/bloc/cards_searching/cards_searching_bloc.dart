@@ -19,50 +19,47 @@ class CardsSearchingBloc
     extends Bloc<CardsSearchingEvent, CardsSearchingState> {
   CardsSearchingBloc() : super(CardsSearchingInitial()) {
     on<CardsSearchingEvent>((event, emit) {});
+
     on<CardSearchingStarted>((event, emit) async {
       emit(const CardSearchingLoaded(data: []));
     });
+
     on<CardSearchingSubmit>((event, emit) async {
-      // ignore: unrelated_type_equality_checks
-      if (state != CardSearchingLoading) {
-        emit(CardSearchingLoading());
-        final data = await CardApi().fetchData(event.name, event.language);
-        if (data.list.isNotEmpty) {
-          emit(CardSearchingLoaded(data: data.list));
-        } else {
-          emit(CardSearchingError(respone: data.error));
-        }
+      emit(CardSearchingLoading());
+      final data = await CardApi().fetchData(event.name, event.language);
+      if (data.list.isNotEmpty) {
+        emit(CardSearchingLoaded(data: data.list));
+      } else {
+        emit(CardSearchingError(respone: data.error));
       }
     });
-    on<CardRandomSubit>(((event, emit) async {
-      if (state != CardSearchingLoading) {
-        emit(CardSearchingLoading());
-        Random random = Random();
-        List<int> randomList = [];
-        for (int i = 0; i < 6; i++) {
-          randomList.add(Constant()
-              .randomNumbers[random.nextInt(Constant().randomNumbers.length)]);
-        }
-        print(randomList.length);
-        final data = await CardApi().fetchId(randomList, tr("lang"));
 
-        if (data.list.isNotEmpty) {
-          emit(CardSearchingLoaded(data: data.list));
-        } else {
-          emit(const CardSearchingError(respone: "error"));
-        }
+    on<CardRandomSubit>(((event, emit) async {
+      emit(CardSearchingLoading());
+      Random random = Random();
+      List<int> randomList = [];
+      for (int i = 0; i < 6; i++) {
+        randomList.add(Constant()
+            .randomNumbers[random.nextInt(Constant().randomNumbers.length)]);
+      }
+      print(randomList.length);
+      final data = await CardApi().fetchId(randomList, tr("lang"));
+
+      if (data.list.isNotEmpty) {
+        emit(CardSearchingLoaded(data: data.list));
+      } else {
+        emit(const CardSearchingError(respone: "error"));
       }
     }));
+
     on<CardSearchingIdSubmit>((event, emit) async {
-      if (state != CardSearchingLoading) {
-        emit(CardSearchingLoading());
-        final data = await CardApi().fetchId(event.list, event.language);
-        if (data.list.isNotEmpty) {
-          print("length of data${data.list.length}");
-          emit(CardSearchingLoaded(data: data.list));
-        } else {
-          emit(CardSearchingError(respone: data.error));
-        }
+      emit(CardSearchingLoading());
+      final data = await CardApi().fetchId(event.list, event.language);
+      if (data.list.isNotEmpty) {
+        print("length of data${data.list.length}");
+        emit(CardSearchingLoaded(data: data.list));
+      } else {
+        emit(CardSearchingError(respone: data.error));
       }
     });
   }

@@ -1,7 +1,7 @@
 
 import 'package:equatable/equatable.dart';
+import 'package:yugi_oh_cards/models/data_response.dart';
 
-import 'package:yugi_oh_cards/services/cards_api_services.dart';
 
 enum FavoritesStatus { init, loading, loaded, error }
 

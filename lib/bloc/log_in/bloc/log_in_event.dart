@@ -15,7 +15,7 @@ class LogInChangeInfo extends LogInEvent {
     required this.data,
   });
   @override
-  List<Object> get props => [field,data];
+  List<Object> get props => [field, data];
 }
 
 class LogInReset extends LogInEvent {

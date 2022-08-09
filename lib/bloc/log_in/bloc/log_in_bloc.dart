@@ -17,15 +17,12 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
     on<LogInSubmit>(_onSubmit);
     on<LogInChangeInfo>((event, emit) async {
       {
-        if (state.status == LogInStatus.success) {
-          FireStoreService()
-              .updateInfo(state.message!, event.field, event.data);
-          MyUser user = await FireStoreService().getUserByUid(state.message!);
-          emit(LogInState(
-              message: state.message!,
-              status: LogInStatus.success,
-              myUser: user));
-        }
+        FireStoreService().updateInfo(state.message!, event.field, event.data);
+        MyUser user = await FireStoreService().getUserByUid(state.message!);
+        emit(LogInState(
+            message: state.message!,
+            status: LogInStatus.success,
+            myUser: user));
       }
     });
     on<LogInReset>(

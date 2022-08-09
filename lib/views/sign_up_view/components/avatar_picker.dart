@@ -17,46 +17,36 @@ class AvatarPicker extends StatefulWidget {
 class _AvatarPickerState extends State<AvatarPicker> {
   XFile? imageFile;
   //imageError de xu ly error
-  
+
   _getFromGallery() async {
     if (Platform.isAndroid) {
       PermissionStatus permissions = await Permission.storage.request();
 
       if (permissions.isGranted) {
-        
-          final imagePicker =
-              await ImagePicker().pickImage(source: ImageSource.gallery);
-          // ignore: use_build_context_synchronously, invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
-          context.read<ImageCubit>().emit(File(imagePicker!.path));
-          setState(() {
-            imageFile = imagePicker;
-          });
-        
+        final imagePicker =
+            await ImagePicker().pickImage(source: ImageSource.gallery);
+        // ignore: use_build_context_synchronously, invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
+        context.read<ImageCubit>().emit(File(imagePicker!.path));
+        setState(() {
+          imageFile = imagePicker;
+        });
       } else if (permissions.isDenied) {
-        
-
-      }  else if (permissions.isPermanentlyDenied) {
+      } else if (permissions.isPermanentlyDenied) {
         openAppSettings();
-      } 
+      }
     } else {
       PermissionStatus permissions = await Permission.photos.request();
-      if(permissions.isGranted)
-      {
-         final imagePicker =
-              await ImagePicker().pickImage(source: ImageSource.gallery);
-          // ignore: use_build_context_synchronously, invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
-          context.read<ImageCubit>().emit(File(imagePicker!.path));
-          setState(() {
-            imageFile = imagePicker;
-          });
-      }
-      else if( permissions.isLimited)
-      {
+      if (permissions.isGranted) {
+        final imagePicker =
+            await ImagePicker().pickImage(source: ImageSource.gallery);
+        // ignore: use_build_context_synchronously, invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
+        context.read<ImageCubit>().emit(File(imagePicker!.path));
+        setState(() {
+          imageFile = imagePicker;
+        });
+      } else if (permissions.isLimited) {
         openAppSettings();
-      }
-      else if(permissions.isRestricted)
-      {
-        
+      } else if (permissions.isRestricted) {
         openAppSettings();
       }
     }

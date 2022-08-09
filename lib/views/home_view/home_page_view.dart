@@ -5,7 +5,6 @@ import 'package:yugi_oh_cards/views/favorite_view/favourite_view.dart';
 import 'package:yugi_oh_cards/views/search_view/search_view.dart';
 import 'package:yugi_oh_cards/views/shopping_view/shopping_view.dart';
 
-
 // Khong modify constant de cho easy localize rebuild
 class HomePageview extends StatefulWidget {
   const HomePageview({Key? key}) : super(key: key);
@@ -15,7 +14,6 @@ class HomePageview extends StatefulWidget {
 }
 
 class _HomePageviewState extends State<HomePageview> {
-  
   int _selectedIndex = 0;
   bool isSwitched = false;
   final List<Widget> _widgetOptions = [
@@ -25,7 +23,7 @@ class _HomePageviewState extends State<HomePageview> {
     ShoppingView(),
     //SettingsView(),
   ];
-  
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -91,9 +89,8 @@ class _HomePageviewState extends State<HomePageview> {
         ),
       ),
       body: IndexedStack(
-       index: _selectedIndex,
-          children: _widgetOptions,
-        
+        index: _selectedIndex,
+        children: _widgetOptions,
       ),
     );
   }

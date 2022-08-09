@@ -14,20 +14,15 @@ class UserSignUpBloc extends Bloc<UserSignUpEvent, UserSignUpState> {
       emit(UserSignUpInitial());
     });
     on<UserSignUpSubmit>((event, emit) async {
-      if (state != UserSignUpSubmitting) {
-        emit(const UserSignUpSubmitting());
-      }
+      emit(const UserSignUpSubmitting());
       try {
         String img =
             await FireStoreService().uploadImage(File(event.image.path));
         String status = await FireStoreService().addNewUser(
-            event.name, event.email, event.password,img, event.phoneNumber);
-        if(status == "Success")
-        {
+            event.name, event.email, event.password, img, event.phoneNumber);
+        if (status == "Success") {
           emit(const UserSignUpSubmitted());
-        }
-        else
-        {
+        } else {
           emit(UserSignUpError(error: status));
         }
       } catch (e) {

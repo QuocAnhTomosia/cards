@@ -5,7 +5,7 @@ class MyUser {
   String imageLink;
   String password;
   List<dynamic> favorites;
-  Map<dynamic,dynamic> orderList;
+  Map<dynamic, dynamic> orderList;
   MyUser({
     required this.name,
     required this.phoneNumber,
@@ -18,7 +18,7 @@ class MyUser {
 
   factory MyUser.fromJson(Map<String, dynamic> json) {
     return MyUser(
-      name: json["name"],
+        name: json["name"],
         password: json["password"],
         phoneNumber: json["phoneNumber"],
         email: json["email"],

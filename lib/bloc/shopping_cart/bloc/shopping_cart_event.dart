@@ -23,7 +23,7 @@ class ShoppingCartChangeItem extends ShoppingCartEvent {
   });
 
   @override
-  List<Object> get props => [itemId, isAdd, orderList,uid,cardsDetails];
+  List<Object> get props => [itemId, isAdd, orderList, uid, cardsDetails];
 }
 
 // ignore: must_be_immutable
@@ -39,13 +39,12 @@ class ShoppingCartDeleteItem extends ShoppingCartEvent {
   List<Object> get props => [itemId, orderList];
 }
 
-
 class ShoppingCartBuy extends ShoppingCartEvent {
   final String uid;
 
-  const ShoppingCartBuy(
-    {required this.uid,}
-  );
+  const ShoppingCartBuy({
+    required this.uid,
+  });
   @override
   List<Object> get props => [uid];
 }

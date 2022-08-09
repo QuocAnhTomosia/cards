@@ -108,7 +108,6 @@ class SettingsView extends StatelessWidget {
                       ],
                     ),
                   )),
-                  
           BlocListener<LogInBloc, LogInState>(
             listener: ((context, state) {
               if (state.status == LogInStatus.init) {

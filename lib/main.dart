@@ -10,7 +10,6 @@ import 'package:yugi_oh_cards/bloc/sign_up/bloc/user_sign_up_bloc.dart';
 import 'package:yugi_oh_cards/cubit/image_cubit.dart';
 import 'package:yugi_oh_cards/cubit/unique_id_cubit.dart';
 import 'package:yugi_oh_cards/routes/route_names.dart';
-
 import 'bloc/cards_searching/cards_searching_bloc.dart';
 import 'bloc/home_bloc/bloc/home_bloc.dart';
 
@@ -39,9 +38,9 @@ class YugiOh extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<UniqueIdCubit>(create: (context) =>UniqueIdCubit()),
+        BlocProvider<UniqueIdCubit>(create: (context) => UniqueIdCubit()),
         BlocProvider<ShoppingCartBloc>(create: (context) => ShoppingCartBloc()),
-        BlocProvider<FavoritesBloc>(create: (context) =>FavoritesBloc()),
+        BlocProvider<FavoritesBloc>(create: (context) => FavoritesBloc()),
         BlocProvider<HomeBloc>(create: ((context) => HomeBloc())),
         BlocProvider<LogInBloc>(create: ((context) => LogInBloc())),
         BlocProvider<UserSignUpBloc>(create: ((context) => UserSignUpBloc())),

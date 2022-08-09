@@ -27,7 +27,7 @@ class UserSignUpError extends UserSignUpState {
   const UserSignUpError({
     required this.error,
   });
-  
-   @override
+
+  @override
   List<Object> get props => [error];
 }

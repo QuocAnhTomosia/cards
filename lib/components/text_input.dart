@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class TextInputWidget extends StatelessWidget {
   String text;
-  TextEditingController controller ;
+  TextEditingController controller;
   TextInputWidget({
     Key? key,
     required this.text,

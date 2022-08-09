@@ -14,7 +14,6 @@ class FireStoreService {
   getUserByUid(String uid) async {
     var tmp = await _instance.collection("Users").doc(uid).get();
     return MyUser.fromJson(tmp.data()!);
-    
   }
 
   Future<String> addNewUser(String phoneNumber, String email, String name,
@@ -25,8 +24,7 @@ class FireStoreService {
         .get();
     if (checkUser.docs.isEmpty || checkUser.docs[0].data()["email"] != email) {
       try {
-        
-            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: password,
         );

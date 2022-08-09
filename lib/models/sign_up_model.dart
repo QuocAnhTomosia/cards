@@ -1,6 +1,5 @@
 import 'dart:io';
 
-
 class SignUpInfo {
   String name;
   String email;
@@ -14,5 +13,4 @@ class SignUpInfo {
     required this.phoneNumber,
     required this.password,
   });
-  
 }

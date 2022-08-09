@@ -15,6 +15,4 @@ class Favorite {
 
   get() => _favorites;
   set(List<int> favorites) => _favorites = favorites;
-
-  static fromMap() {}
 }

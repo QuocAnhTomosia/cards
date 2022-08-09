@@ -87,7 +87,8 @@ class SearchWiew extends StatelessWidget {
                         )),
               );
             } else {
-              return const Text("Hello",style:TextStyle(fontFamily:'Roboto'));
+              return const Text("Hello",
+                  style: TextStyle(fontFamily: 'Roboto'));
             }
           }),
         ),

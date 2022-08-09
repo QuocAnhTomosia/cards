@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:yugi_oh_cards/bloc/shopping_cart/bloc/shopping_cart_state.dart';
+import 'package:yugi_oh_cards/models/data_response.dart';
 import 'package:yugi_oh_cards/services/cards_api_services.dart';
 import 'package:yugi_oh_cards/services/firebase_firestore_service.dart';
 
@@ -11,18 +14,17 @@ class ShoppingCartBloc extends Bloc<ShoppingCartEvent, ShoppingCartState> {
   ShoppingCartBloc() : super(ShoppingCartState.initState()) {
     on<ShoppingCartEvent>((event, emit) {});
     on<ShoppingCartBuy>((event, emit) {
-      if (state.shoppingState == ShoppingState.loaded) {
-        double money = 0;
-        for (int i = 0; i < state.cardsDetails.list.length; i++) {
-          money += state.orderList[state.cardsDetails.list[i].id.toString()] *
-              double.parse(state.cardsDetails.list[i].cardPrices);
-        }
-        state.orderList = {};
-        FireStoreService().updateInfo(event.uid, "orderList", {});
-        FireStoreService().updateInfo(event.uid, "favorites", []);
-        state.cardsDetails = DataResponse([], "no error");
-        emit(ShoppingCartState.loaded(const {}, DataResponse([], "no error")));
+      double money = 0;
+      for (int i = 0; i < state.cardsDetails.list.length; i++) {
+        money += state.orderList[state.cardsDetails.list[i].id.toString()] *
+            double.parse(state.cardsDetails.list[i].cardPrices);
       }
+      log(money.toString());
+      state.orderList = {};
+      FireStoreService().updateInfo(event.uid, "orderList", {});
+      FireStoreService().updateInfo(event.uid, "favorites", []);
+      state.cardsDetails = DataResponse([], "no error");
+      emit(ShoppingCartState.loaded(const {}, DataResponse([], "no error")));
     });
     on<ShoppingCartDeleteItem>((event, emit) async {
       DataResponse data =

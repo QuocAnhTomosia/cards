@@ -17,7 +17,7 @@ class PassWordWidget extends StatefulWidget {
 
 class _PassWordWidgetState extends State<PassWordWidget> {
   bool isVisible = true;
-  
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(

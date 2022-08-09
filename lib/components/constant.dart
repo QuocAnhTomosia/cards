@@ -3,6 +3,7 @@ import 'package:yugi_oh_cards/models/user_model.dart';
 
 class Constant {
   String avatarImage = "assets/images/avatar.png";
+  String baseUrl = "https://db.ygoprodeck.com/api/v7/cardinfo.php?";
   MyUser errorUser = MyUser(
       name: "err",
       phoneNumber: "err",
