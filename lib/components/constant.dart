@@ -11,8 +11,8 @@ class Constant {
       password: "err",
       favorites: [],
       orderList: {});
-  Widget decoration =  Container(decoration: 
-  const BoxDecoration(
+  Widget decoration = Container(
+      decoration: const BoxDecoration(
     gradient: LinearGradient(
         colors: [
           Color(0xFF3366FF),
@@ -23,6 +23,7 @@ class Constant {
         stops: [0.0, 1.0],
         tileMode: TileMode.clamp),
   ));
+
   List<int> randomNumbers = [
     34541863,
     64163367,

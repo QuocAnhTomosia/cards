@@ -7,7 +7,7 @@ import 'package:yugi_oh_cards/bloc/log_in/bloc/log_in_bloc.dart';
 import 'package:yugi_oh_cards/components/card_display.dart';
 import 'package:yugi_oh_cards/components/fade_widget.dart';
 
-import '../bloc/log_in/bloc/log_in_state.dart';
+import '../../bloc/log_in/bloc/log_in_state.dart';
 
 class SearchWiew extends StatelessWidget {
   SearchWiew({Key? key}) : super(key: key);

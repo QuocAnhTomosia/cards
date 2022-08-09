@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:yugi_oh_cards/views/cards_buy_view.dart';
-import 'package:yugi_oh_cards/views/search_view.dart';
-import 'package:yugi_oh_cards/views/sign_up_view.dart';
+import 'package:yugi_oh_cards/views/home_view/cards_buy_view.dart';
+import 'package:yugi_oh_cards/views/search_view/search_view.dart';
+import 'package:yugi_oh_cards/views/sign_up_view/sign_up_view.dart';
 
-import '../views/login_view.dart';
-import '../views/home_page_view.dart';
-import '../views/settings_view.dart';
-import '../views/start_view.dart';
+import '../views/login_view/login_view.dart';
+import '../views/home_view/home_page_view.dart';
+import '../views/settings_view/settings_view.dart';
+import '../views/start_view/start_view.dart';
 
 class NamedRouter {
   static Map<String, WidgetBuilder> routes = {
