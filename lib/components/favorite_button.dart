@@ -5,6 +5,7 @@ import 'package:yugi_oh_cards/models/user_model.dart';
 import '../bloc/favorites/bloc/favorites_bloc.dart';
 import '../bloc/log_in/bloc/log_in_bloc.dart';
 
+// ignore: must_be_immutable
 class FavoriteChange extends StatefulWidget {
   MyUser myUser;
   final int id;
@@ -23,7 +24,7 @@ class _FavoriteChangeState extends State<FavoriteChange> {
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.blue, backgroundColor: Colors.white),
+            primary: Colors.blue, onPrimary: Colors.white),
         onPressed: () {
           setState(() {
             if (widget.myUser.favorites.contains(widget.id)) {

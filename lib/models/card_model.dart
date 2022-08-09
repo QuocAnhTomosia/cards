@@ -5,10 +5,10 @@ class YugiOhCard {
   String desc;
   String race;
   // ignore: non_constant_identifier_names
-  String image_url;
+  String imageUrl;
   String attribute;
   // ignore: non_constant_identifier_names
-  String card_prices;
+  String cardPrices;
   YugiOhCard({
     required this.id,
     required this.name,
@@ -16,10 +16,10 @@ class YugiOhCard {
     required this.desc,
     required this.race,
     // ignore: non_constant_identifier_names
-    required this.image_url,
+    required this.imageUrl,
     required this.attribute,
     // ignore: non_constant_identifier_names
-    required this.card_prices,
+    required this.cardPrices,
   });
 
   factory YugiOhCard.fromJsonApi(Map<String, dynamic> json) {
@@ -29,9 +29,9 @@ class YugiOhCard {
       type: json["type"],
       desc: json["desc"],
       race: json["race"],
-      image_url: json["card_images"][0]["image_url"],
+      imageUrl: json["card_images"][0]["image_url"],
       attribute: json["attribute"] ?? "No Atrribute",
-      card_prices: json["card_prices"][0]["cardmarket_price"],
+      cardPrices: json["card_prices"][0]["cardmarket_price"],
     );
   }
 
@@ -42,9 +42,9 @@ class YugiOhCard {
       "type": type,
       "desc": desc,
       "race": race,
-      "image_url": image_url,
+      "image_url": imageUrl,
       "attribute": attribute,
-      "card_prices": card_prices
+      "card_prices": cardPrices
     };
   }
 }

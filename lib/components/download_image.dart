@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_downloader/image_downloader.dart';
 
+// ignore: must_be_immutable
 class MyDiaLog extends StatelessWidget {
-  late String img_link;
+  late String imgLink;
   late BuildContext parentContext;
-  MyDiaLog({Key? key, required img_link, required parentContext})
+  MyDiaLog({Key? key, required imgLink, required parentContext})
       : super(key: key) {
-    this.img_link = img_link;
-    this.parentContext = parentContext;
+    imgLink = imgLink;
+    parentContext = parentContext;
   }
 
   @override
@@ -23,9 +24,9 @@ class MyDiaLog extends StatelessWidget {
         ),
         TextButton(
           onPressed: () async {
-            try {
+            
               // Saved with this method.
-              var imageId = await ImageDownloader.downloadImage(this.img_link);
+              var imageId = await ImageDownloader.downloadImage(imgLink);
 
               if (imageId == null) {
                 return;
@@ -35,10 +36,9 @@ class MyDiaLog extends StatelessWidget {
               var path = await ImageDownloader.findPath(imageId);
               var size = await ImageDownloader.findByteSize(imageId);
               var mimeType = await ImageDownloader.findMimeType(imageId);
+              // ignore: use_build_context_synchronously
               Navigator.pop(context, 'Cancel');
-            } catch (error) {
-              print(error);
-            }
+            
           },
           child: const Text('Download'),
         ),

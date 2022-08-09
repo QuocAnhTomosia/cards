@@ -1,10 +1,6 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:yugi_oh_cards/bloc/sign_up/bloc/user_sign_up_bloc.dart';
 import 'package:yugi_oh_cards/components/constant.dart';
 import 'package:yugi_oh_cards/components/password_input.dart';
@@ -30,7 +26,8 @@ class SignUpView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Constant().decoration,
-        title: Text(tr("Sign up")),centerTitle: true,
+        title: Text(tr("Sign up")),
+        centerTitle: true,
         actions: [
           IconButton(
               onPressed: () {

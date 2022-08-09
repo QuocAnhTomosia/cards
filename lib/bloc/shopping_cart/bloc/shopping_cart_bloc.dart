@@ -15,7 +15,7 @@ class ShoppingCartBloc extends Bloc<ShoppingCartEvent, ShoppingCartState> {
         double money = 0;
         for (int i = 0; i < state.cardsDetails.list.length; i++) {
           money += state.orderList[state.cardsDetails.list[i].id.toString()] *
-              double.parse(state.cardsDetails.list[i].card_prices);
+              double.parse(state.cardsDetails.list[i].cardPrices);
         }
         state.orderList = {};
         FireStoreService().updateInfo(event.uid, "orderList", {});

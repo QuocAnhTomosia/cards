@@ -53,7 +53,7 @@ class FavoriteWidget extends StatelessWidget {
                       width: size.width * 0.7,
                       height: size.width * 0.7 * 1.4,
                       child: Image.network(
-                        state.data!.list[index].image_url,
+                        state.data!.list[index].imageUrl,
                         fit: BoxFit.fill,
                       ),
                     )),
@@ -70,14 +70,17 @@ class FavoriteWidget extends StatelessWidget {
                                   showDialog(
                                       context: context,
                                       builder: (context) {
-                                        return MyDiaLog(img_link: state.data!.list[index].image_url, parentContext: context);
+                                        return MyDiaLog(
+                                            imgLink: state
+                                                .data!.list[index].imageUrl,
+                                            parentContext: context);
                                       });
                                 },
                                 child: SizedBox(
                                   width: size.width * 0.7,
                                   height: size.width * 0.7 * 1.4,
                                   child: Image.network(
-                                    state.data!.list[index].image_url,
+                                    state.data!.list[index].imageUrl,
                                     fit: BoxFit.fill,
                                   ),
                                 ),
@@ -93,7 +96,7 @@ class FavoriteWidget extends StatelessWidget {
                               ),
                               SizedBox(
                                 child: Text(
-                                    "Price: ${state.data!.list[index].card_prices}"),
+                                    "Price: ${state.data!.list[index].cardPrices}"),
                               ),
                             ]),
                           ),

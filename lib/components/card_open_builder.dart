@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:yugi_oh_cards/components/download_image.dart';
 
 import 'package:yugi_oh_cards/models/card_model.dart';
@@ -26,7 +24,7 @@ CardOpenBuilder({
                           showDialog(
                             context: context,
                             builder: (context) => MyDiaLog(
-                                img_link: card.image_url,
+                                imgLink: card.imageUrl,
                                 parentContext: context),
                           );
                         },
@@ -34,7 +32,7 @@ CardOpenBuilder({
                           width: size.width * 0.7,
                           height: size.width * 0.7 * 1.4,
                           child: Image.network(
-                            card.image_url,
+                            card.imageUrl,
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -47,7 +45,7 @@ CardOpenBuilder({
                             child: Text("Description: ${card.desc}")),
                       ),
                       SizedBox(
-                        child: Text("Price: ${card.card_prices}"),
+                        child: Text("Price: ${card.cardPrices}"),
                       ),
                     ]),
                   ),

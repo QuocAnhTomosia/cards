@@ -44,7 +44,7 @@ class ShoppingView extends StatelessWidget {
                               height: size.width * 0.4 * 1.4,
                               width: size.width * 0.4,
                               child: Image.network(
-                                state.cardsDetails.list[index].image_url,
+                                state.cardsDetails.list[index].imageUrl,
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -99,7 +99,7 @@ class ShoppingView extends StatelessWidget {
                                   children: [
                                     const Icon(Icons.currency_yuan_rounded),
                                     Text(state
-                                        .cardsDetails.list[index].card_prices),
+                                        .cardsDetails.list[index].cardPrices),
                                   ],
                                 ),
                               ],
