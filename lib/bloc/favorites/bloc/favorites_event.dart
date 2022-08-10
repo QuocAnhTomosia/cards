@@ -13,7 +13,6 @@ class FavoritesLoad extends FavoritesEvent {
     required this.ids,
   });
 
-
   @override
   List<Object> get props => [ids];
 }

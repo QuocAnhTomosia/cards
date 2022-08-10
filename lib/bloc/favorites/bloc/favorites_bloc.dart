@@ -12,15 +12,13 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
   FavoritesBloc() : super(FavoritesState.init()) {
     on<FavoritesEvent>((event, emit) {});
     on<FavoritesLoad>((event, emit) async {
-   
-        emit(FavoritesState.loading());
-        DataResponse data = await CardApi().fetchId(event.ids, tr("lang"));
-        if (data.list.isNotEmpty) {
-          emit(FavoritesState.loaded(event.ids, data));
-        } else {
-          emit(FavoritesState.error(data));
-        }
-      
+      emit(FavoritesState.loading());
+      DataResponse data = await CardApi().fetchId(event.ids, tr("lang"));
+      if (data.list.isNotEmpty) {
+        emit(FavoritesState.loaded(event.ids, data));
+      } else {
+        emit(FavoritesState.error(data));
+      }
     });
   }
 }

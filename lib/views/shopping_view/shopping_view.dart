@@ -62,17 +62,15 @@ class ShoppingView extends StatelessWidget {
                                     Row(
                                       children: [
                                         IconButton(
-                                            onPressed: () {
-                                              _onTapAddRemove(
-                                                  context, state, index, true);
-                                            },
+                                            onPressed: () => _onTapAddRemove(
+                                                context, state, index, true),
                                             icon: const Icon(Icons.add)),
                                         Text(state.orderList[state
                                                 .cardsDetails.list[index].id
                                                 .toString()]
                                             .toString()),
                                         IconButton(
-                                            onPressed: _onTapAddRemove(
+                                            onPressed: () => _onTapAddRemove(
                                                 context, state, index, false),
                                             icon: const Icon(Icons.remove)),
                                       ],
@@ -97,7 +95,7 @@ class ShoppingView extends StatelessWidget {
                       ),
                     ),
                     InkWell(
-                      onTap: _onTapBuy(context),
+                      onTap: () => _onTapBuy(context),
                       child: Container(
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -155,7 +153,7 @@ class ShoppingView extends StatelessWidget {
   }
 }
 
-_onTapBuy(context) async {
+_onTapBuy(context) {
   context.read<ShoppingCartBloc>().add(ShoppingCartBuy(
         uid: context.read<LogInBloc>().state.message!,
       ));

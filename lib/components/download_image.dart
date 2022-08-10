@@ -30,7 +30,7 @@ class MyDiaLog extends StatelessWidget {
             if (imageId == null) {
               return;
             }
-    
+
             // ignore: use_build_context_synchronously
             Navigator.pop(context, 'Cancel');
           },

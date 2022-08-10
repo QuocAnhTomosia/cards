@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:yugi_oh_cards/models/data_response.dart';
 
-
 enum ShoppingState { init, loading, loaded, error, buy }
 
 // ignore: must_be_immutable
@@ -16,7 +15,7 @@ class ShoppingCartState extends Equatable {
   );
 
   @override
-  List<Object> get props => [orderList,cardsDetails,shoppingState];
+  List<Object> get props => [orderList, cardsDetails, shoppingState];
 
   ShoppingCartState.initState()
       : this({}, DataResponse([], 'init'), ShoppingState.init);

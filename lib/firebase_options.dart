@@ -63,7 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '811538869177',
     projectId: 'yugiohcard-d60d8',
     storageBucket: 'yugiohcard-d60d8.appspot.com',
-    iosClientId: '811538869177-vvafsbme648tk7k3gb3rm6ijgfjh802e.apps.googleusercontent.com',
+    iosClientId:
+        '811538869177-vvafsbme648tk7k3gb3rm6ijgfjh802e.apps.googleusercontent.com',
     iosBundleId: 'com.example.cards',
   );
 }

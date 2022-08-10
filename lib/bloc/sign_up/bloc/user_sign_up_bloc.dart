@@ -14,7 +14,6 @@ class UserSignUpBloc extends Bloc<UserSignUpEvent, UserSignUpState> {
       emit(UserSignUpState.init());
     });
     on<UserSignUpSubmit>((event, emit) async {
-      
       try {
         String img =
             await FireStoreService().uploadImage(File(event.image.path));
@@ -26,7 +25,7 @@ class UserSignUpBloc extends Bloc<UserSignUpEvent, UserSignUpState> {
           emit(UserSignUpState.error(status));
         }
       } catch (e) {
-        emit(UserSignUpState.error( e.toString()));
+        emit(UserSignUpState.error(e.toString()));
       }
     });
   }

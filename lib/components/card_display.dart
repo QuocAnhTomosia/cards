@@ -64,7 +64,10 @@ class CardDisplay extends StatelessWidget {
                         .read<ShoppingCartBloc>()
                         .add(ShoppingCartLoad(myUser.orderList));
                   },
-                  child: const Icon(Icons.shopping_basket,color: Colors.black,)),
+                  child: const Icon(
+                    Icons.shopping_basket,
+                    color: Colors.black,
+                  )),
             ),
             FavoriteChange(
               id: card.id,

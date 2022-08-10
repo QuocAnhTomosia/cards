@@ -27,7 +27,7 @@ class _AvatarPickerState extends State<AvatarPicker> {
       if (permissions.isGranted) {
         final imagePicker =
             await ImagePicker().pickImage(source: ImageSource.gallery);
-        // ignore: use_build_context_synchronously, 
+        // ignore: use_build_context_synchronously,
         context.read<ImageCubit>().emit(File(imagePicker!.path));
         setState(() {
           imageFile = imagePicker;

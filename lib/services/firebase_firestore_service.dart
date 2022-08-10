@@ -12,8 +12,7 @@ class FireStoreService {
   final FirebaseStorage _ref = FirebaseStorage.instance;
 
   getUserByUid(String uid) async {
-    var tmp =
-        await _instance.collection("Users").doc(uid).get();
+    var tmp = await _instance.collection("Users").doc(uid).get();
     return MyUser.fromJson(tmp.data()!);
   }
 

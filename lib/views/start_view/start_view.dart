@@ -15,20 +15,23 @@ class StartView extends StatelessWidget {
         },
         icon: const Icon(Icons.skip_next),
       ),
-      appBar: AppBar(title: const Text('Start App'),flexibleSpace: Constant().decoration,),
+      appBar: AppBar(
+        title: const Text('Start App'),
+        flexibleSpace: Constant().decoration,
+      ),
       body: PageView(
         /// [PageView.scrollDirection] defaults to [Axis.horizontal].
         /// Use [Axis.vertical] to scroll vertically.
         controller: controller,
         children: const <Widget>[
           Center(
-            child: Text('First Page',style:TextStyle(fontFamily:'Roboto')),
+            child: Text('First Page', style: TextStyle(fontFamily: 'Roboto')),
           ),
           Center(
-            child: Text('Second Page',style:TextStyle(fontFamily:'Roboto')),
+            child: Text('Second Page', style: TextStyle(fontFamily: 'Roboto')),
           ),
           Center(
-            child: Text('Third Page',style:TextStyle(fontFamily:'Roboto')),
+            child: Text('Third Page', style: TextStyle(fontFamily: 'Roboto')),
           )
         ],
       ),

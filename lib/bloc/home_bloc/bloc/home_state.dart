@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:yugi_oh_cards/models/data_response.dart';
 
-
 enum StatusCode { init, loaded, loading, error }
 
 // ignore: must_be_immutable

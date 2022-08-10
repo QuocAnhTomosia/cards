@@ -5,11 +5,12 @@ import 'package:yugi_oh_cards/models/user_model.dart';
 class Constant {
   String avatarImage = "assets/images/avatar.png";
   String baseUrl = "https://db.ygoprodeck.com/api/v7/cardinfo.php?";
-  BaseOptions baseOption =BaseOptions(
-          baseUrl: "https://db.ygoprodeck.com/api/v7/randomcard.php",
-          receiveTimeout: 10000, //
-          connectTimeout: 10000,
-          sendTimeout: 10000,);
+  BaseOptions baseOption = BaseOptions(
+    baseUrl: "https://db.ygoprodeck.com/api/v7/randomcard.php",
+    receiveTimeout: 10000, //
+    connectTimeout: 10000,
+    sendTimeout: 10000,
+  );
   MyUser errorUser = MyUser(
       name: "err",
       phoneNumber: "err",

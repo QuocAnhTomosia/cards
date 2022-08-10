@@ -25,8 +25,7 @@ class UserSignUpSubmit extends UserSignUpEvent {
     required this.phoneNumber,
     required this.password,
     required this.image,
-    
   });
   @override
-  List<Object> get props => [name,email,password,image,phoneNumber];
+  List<Object> get props => [name, email, password, image, phoneNumber];
 }

@@ -1,5 +1,3 @@
-
-
 import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
@@ -14,8 +12,6 @@ class ShoppingCartBloc extends Bloc<ShoppingCartEvent, ShoppingCartState> {
   ShoppingCartBloc() : super(ShoppingCartState.initState()) {
     on<ShoppingCartEvent>((event, emit) {});
     on<ShoppingCartBuy>((event, emit) {
-      
-      
       state.orderList = {};
       FireStoreService().updateInfo(event.uid, "orderList", {});
       FireStoreService().updateInfo(event.uid, "favorites", []);

@@ -16,6 +16,6 @@ class UserSignUpState extends Equatable {
 
   UserSignUpState.init() : this(error: "init", status: SignUpStatus.init);
   UserSignUpState.submit() : this(error: "no", status: SignUpStatus.submit);
-  UserSignUpState.error(String error) : this(error: error, status: SignUpStatus.error);
-
+  UserSignUpState.error(String error)
+      : this(error: error, status: SignUpStatus.error);
 }

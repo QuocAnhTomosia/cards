@@ -63,8 +63,6 @@ class CardApi {
 
     if (name == "") {
       try {
-   
-      
         final Response response = await Dio(Constant().baseOption).get(
           '',
         );
@@ -77,7 +75,6 @@ class CardApi {
       }
     } else {
       try {
-        
         final Response response = await Dio(Constant().baseOption).get(
           "fname=$name${language == "en" ? "" : "&language=$language"}",
         );
