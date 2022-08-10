@@ -12,12 +12,18 @@ class FireStoreService {
   final FirebaseStorage _ref = FirebaseStorage.instance;
 
   getUserByUid(String uid) async {
-    var tmp = await _instance.collection("Users").doc(uid).get();
+    var tmp =
+        await _instance.collection("Users").doc(uid).get();
     return MyUser.fromJson(tmp.data()!);
   }
 
-  Future<String> addNewUser(String phoneNumber, String email, String name,
-      String password, String imageLink) async {
+  Future<String> addNewUser(
+    String name,
+    String email,
+    String password,
+    String imageLink,
+    String phoneNumber,
+  ) async {
     var checkUser = await _instance
         .collection("Users")
         .where("email", isEqualTo: email)
@@ -34,15 +40,16 @@ class FireStoreService {
           "image_link": imageLink,
           "favorites": {},
           "orderList": {},
-          "phoneNumer": phoneNumber,
+          "phoneNumber": phoneNumber,
+          "password": password,
         });
 
         // de userCredentail phuc vu cho
         //viec xu ly cac exception
 
         return "Success";
-      } catch (e) {
-        return "Some Error happend";
+      } on FirebaseException catch (e) {
+        return e.code;
       }
     } else {
       return "Your email has exists";

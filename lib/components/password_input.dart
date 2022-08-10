@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class PassWordWidget extends StatefulWidget {
   String hintText;
   // ignore: prefer_typing_uninitialized_variables
-  final passwordController;
+  final TextEditingController passwordController;
   PassWordWidget({
     Key? key,
     required this.hintText,
@@ -17,7 +17,6 @@ class PassWordWidget extends StatefulWidget {
 
 class _PassWordWidgetState extends State<PassWordWidget> {
   bool isVisible = true;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -34,6 +33,7 @@ class _PassWordWidgetState extends State<PassWordWidget> {
           enableInteractiveSelection: false,
           obscureText: isVisible,
           decoration: InputDecoration(
+              contentPadding: const EdgeInsets.only(left: 4),
               hintText: widget.hintText,
               border: InputBorder.none,
               suffixIcon: IconButton(
@@ -45,8 +45,7 @@ class _PassWordWidgetState extends State<PassWordWidget> {
                 icon: isVisible
                     ? const Icon(Icons.visibility)
                     : const Icon(Icons.visibility_off),
-              ) 
-              ),
+              )),
         ),
       ),
     );

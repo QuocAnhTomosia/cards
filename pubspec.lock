@@ -169,6 +169,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.2"
+  file_picker:
+    dependency: "direct main"
+    description:
+      name: file_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.0.1"
   firebase_auth:
     dependency: "direct main"
     description:
@@ -337,7 +344,7 @@ packages:
     source: hosted
     version: "2.1.8"
   image_picker_ios:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: image_picker_ios
       url: "https://pub.dartlang.org"

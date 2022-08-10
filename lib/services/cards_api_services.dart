@@ -63,13 +63,9 @@ class CardApi {
 
     if (name == "") {
       try {
-        var options = BaseOptions(
-          baseUrl: "https://db.ygoprodeck.com/api/v7/randomcard.php",
-          receiveTimeout: 10000, //
-          connectTimeout: 10000,
-          sendTimeout: 10000,
-        );
-        final Response response = await Dio(options).get(
+   
+      
+        final Response response = await Dio(Constant().baseOption).get(
           '',
         );
         if (response.data != {}) {
@@ -81,13 +77,8 @@ class CardApi {
       }
     } else {
       try {
-        var options = BaseOptions(
-          baseUrl: "https://db.ygoprodeck.com/api/v7/cardinfo.php?",
-          receiveTimeout: 10000, //
-          connectTimeout: 10000,
-          sendTimeout: 10000,
-        );
-        final Response response = await Dio(options).get(
+        
+        final Response response = await Dio(Constant().baseOption).get(
           "fname=$name${language == "en" ? "" : "&language=$language"}",
         );
         if (response.data["data"] != []) {

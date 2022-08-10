@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 
 import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -14,12 +14,8 @@ class ShoppingCartBloc extends Bloc<ShoppingCartEvent, ShoppingCartState> {
   ShoppingCartBloc() : super(ShoppingCartState.initState()) {
     on<ShoppingCartEvent>((event, emit) {});
     on<ShoppingCartBuy>((event, emit) {
-      double money = 0;
-      for (int i = 0; i < state.cardsDetails.list.length; i++) {
-        money += state.orderList[state.cardsDetails.list[i].id.toString()] *
-            double.parse(state.cardsDetails.list[i].cardPrices);
-      }
-      log(money.toString());
+      
+      
       state.orderList = {};
       FireStoreService().updateInfo(event.uid, "orderList", {});
       FireStoreService().updateInfo(event.uid, "favorites", []);

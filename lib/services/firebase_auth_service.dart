@@ -9,10 +9,10 @@ class FirebaseAuthService {
 
   Future<String> emailSignIn(String email, String password) async {
     try {
-      // recive to
-      await _instance.signInWithEmailAndPassword(
-          email: email, password: password);
-
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
       return await FireStoreService().getUser(email);
     } on FirebaseAuthException catch (err) {
       return err.code;

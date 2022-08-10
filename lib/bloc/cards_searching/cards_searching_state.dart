@@ -1,42 +1,30 @@
-part of 'cards_searching_bloc.dart';
+import 'package:equatable/equatable.dart';
 
-@immutable
-abstract class CardsSearchingState extends Equatable {
-  const CardsSearchingState();
-}
+import 'package:yugi_oh_cards/models/card_model.dart';
 
-class CardsSearchingInitial extends CardsSearchingState {
-  @override
-  List<Object> get props => [];
-}
+enum CardSearchStatus { init, loading, loaded, error }
 
-class CardSearchingLoaded extends CardsSearchingState {
-  final List<YugiOhCard> data;
-  const CardSearchingLoaded({
+// ignore: must_be_immutable
+class CardsSearchingState extends Equatable {
+  List<YugiOhCard> data;
+  CardSearchStatus status;
+  String response;
+
+  CardsSearchingState({
+    required this.status,
     required this.data,
+    required this.response,
   });
-  @override
-  List<Object> get props => [data];
-}
 
-class CardSearchingLoading extends CardsSearchingState {
+  CardsSearchingState.init()
+      : this(data: [], response: "init", status: CardSearchStatus.init);
+  CardsSearchingState.loading()
+      : this(data: [], response: "loading", status: CardSearchStatus.loading);
+  CardsSearchingState.loaded(
+    List<YugiOhCard> data,
+  ) : this(data: data, response: "loaded", status: CardSearchStatus.loaded);
+  CardsSearchingState.error(String response)
+      : this(data: [], response: response, status: CardSearchStatus.error);
   @override
-  List<Object> get props => [];
-}
-
-class CardSearchingError extends CardsSearchingState {
-  final String respone ;
-  const CardSearchingError({
-    required this.respone,
-  });
-  @override
-  List<Object> get props => [respone];
-}
-class CardRandomLoaded extends CardsSearchingState {
-  final List<YugiOhCard> data;
-  const CardRandomLoaded({
-    required this.data,
-  });
-  @override
-  List<Object> get props => [data];
+  List<Object> get props => [data, response];
 }

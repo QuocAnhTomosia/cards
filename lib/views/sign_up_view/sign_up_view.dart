@@ -66,32 +66,41 @@ class SignUpView extends StatelessWidget {
                   context.read<UserSignUpBloc>().add(UserSignUpSubmit(
                       name: _name.text,
                       email: _emailController.text,
-                      password: _password.text,
                       phoneNumber: _phone.text,
+                      password: _password.text,
                       image: File(context.read<ImageCubit>().state.path)));
                 }),
-                child: Container(
+                child: SizedBox(
                     width: size.width * 0.15,
                     child: Center(child: Text(tr("submit")))),
               ),
               listener: (context, state) {
-                if (state is UserSignUpSubmitted) {
-                  Navigator.pushNamed(context, '/log_in');
-                }
-                if (state is UserSignUpError) {
-                  showDialog(
-                      context: context,
-                      builder: ((context) => AlertDialog(
-                            title: const Text("please check Sign up Info"),
-                            content: Text(state.error),
-                            actions: [
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(context, 'Cancel'),
-                                child: const Text('Cancel'),
-                              ),
-                            ],
-                          )));
+                switch (state.status) {
+                  case SignUpStatus.submit:
+                    {
+                      Navigator.pushNamed(context, '/log_in');
+                    }
+                    break;
+                  case SignUpStatus.error:
+                    {
+                      showDialog(
+                          context: context,
+                          builder: ((context) => AlertDialog(
+                                title: const Text("please check Sign up Info"),
+                                content: Text(state.error),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'Cancel'),
+                                    child: const Text('Cancel'),
+                                  ),
+                                ],
+                              )));
+                    }
+                    break;
+                  default:
+                    {}
+                    break;
                 }
               },
             ),

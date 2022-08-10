@@ -51,7 +51,6 @@ class LoginView extends StatelessWidget {
             ),
             BlocListener<LogInBloc, LogInState>(
               listener: (context, state) {
-                if (state.status == LogInStatus.init) {}
                 if (state.status == LogInStatus.success) {
                   context.read<HomeBloc>().add(const HomeSubmit());
                   context
@@ -60,7 +59,6 @@ class LoginView extends StatelessWidget {
                   context
                       .read<ShoppingCartBloc>()
                       .add(ShoppingCartLoad(state.myUser!.orderList));
-                  log(context.read<FavoritesBloc>().state.favorites.toString());
                   Navigator.pushNamedAndRemoveUntil(
                       context, "/home_page", (route) => false);
                 }

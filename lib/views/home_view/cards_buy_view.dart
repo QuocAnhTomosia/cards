@@ -17,37 +17,34 @@ class CardsBuyViews extends StatelessWidget {
     return BlocBuilder<HomeBloc, HomeState>(buildWhen: (previous, current) {
       return previous != current;
     }, builder: ((context, state) {
-      if (state.statusCode == StatusCode.loading) {
-        return const Center(
-          child: SpinKitFadingCircle(
-            color: Colors.blue,
-            size: 50.0,
-          ),
-        );
-      }
-      if (state.statusCode == StatusCode.error) {
-        return Text(state.data!.error);
-      }
-      if (state.statusCode == StatusCode.loaded) {
-        return BlocBuilder<LogInBloc, LogInState>(
-          builder: (context, logInState) {
-            return ListView.builder(
-                itemCount: state.data!.list.length,
-                itemBuilder: ((context, index) {
-                  return FadeWidget(
-                      childWidget: CardDisplay(
-                          card: state.data!.list[index],
-                          myUser: logInState.myUser!));
-                }));
-          },
-        );
-      } else {
-        return const Center(
-          child: SpinKitFadingCircle(
-            color: Colors.blue,
-            size: 50.0,
-          ),
-        );
+      switch (state.statusCode) {
+        case StatusCode.error:
+          {
+            return Center(child: Text(state.data!.error));
+          }
+        case StatusCode.loaded:
+          {
+            return BlocBuilder<LogInBloc, LogInState>(
+                builder: (context, logInState) {
+              return ListView.builder(
+                  itemCount: state.data!.list.length,
+                  itemBuilder: ((context, index) {
+                    return FadeWidget(
+                        childWidget: CardDisplay(
+                            card: state.data!.list[index],
+                            myUser: logInState.myUser!));
+                  }));
+            });
+          }
+        default:
+          {
+            return const Center(
+              child: SpinKitFadingCircle(
+                color: Colors.blue,
+                size: 50.0,
+              ),
+            );
+          }
       }
     }));
   }

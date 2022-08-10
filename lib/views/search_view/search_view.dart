@@ -7,6 +7,7 @@ import 'package:yugi_oh_cards/bloc/log_in/bloc/log_in_bloc.dart';
 import 'package:yugi_oh_cards/components/card_display.dart';
 import 'package:yugi_oh_cards/components/fade_widget.dart';
 
+import '../../bloc/cards_searching/cards_searching_state.dart';
 import '../../bloc/log_in/bloc/log_in_state.dart';
 
 class SearchWiew extends StatelessWidget {
@@ -21,24 +22,17 @@ class SearchWiew extends StatelessWidget {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: BlocListener<CardsSearchingBloc, CardsSearchingState>(
-            listener: (context, state) {
-              if (state is CardSearchingStarted) {
-              } else if (state is CardSearchingLoading) {
-              } else if (state is CardSearchingLoaded) {}
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: Colors.blue)),
-              child: TextFormField(
-                controller: _controller,
-                textAlign: TextAlign.center,
-                enableInteractiveSelection: false,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: tr("search_bar"),
-                  border: InputBorder.none,
-                ),
+          child: Container(
+            decoration:
+                BoxDecoration(border: Border.all(width: 1, color: Colors.blue)),
+            child: TextFormField(
+              controller: _controller,
+              textAlign: TextAlign.center,
+              enableInteractiveSelection: false,
+              obscureText: false,
+              decoration: InputDecoration(
+                hintText: tr("search_bar"),
+                border: InputBorder.none,
               ),
             ),
           ),
@@ -52,43 +46,48 @@ class SearchWiew extends StatelessWidget {
         Expanded(
           child: BlocBuilder<CardsSearchingBloc, CardsSearchingState>(
               builder: (context, state) {
-            if (state is CardSearchingError) {
-              return Column(
-                children: [
-                  Text(state.respone),
-                ],
-              );
-            } else if (state is CardSearchingLoading) {
-              return const SpinKitFadingCircle(
-                color: Colors.blue,
-                size: 50.0,
-              );
-            } else if (state is CardSearchingLoaded) {
-              return SizedBox(
-                height: size.height * 0.7,
-                width: size.width,
-                child: ListView.builder(
-                    addAutomaticKeepAlives: false,
-                    itemCount: state.data.length,
-                    itemBuilder: (context, int index) => Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: BlocBuilder<LogInBloc, LogInState>(
-                            buildWhen: (previous, current) {
-                              return previous != current;
-                            },
-                            builder: (context, logState) {
-                              return FadeWidget(
-                                childWidget: CardDisplay(
-                                    card: state.data[index],
-                                    myUser: logState.myUser!),
-                              );
-                            },
-                          ),
-                        )),
-              );
-            } else {
-              return const Text("Hello",
-                  style: TextStyle(fontFamily: 'Roboto'));
+            switch (state.status) {
+              case CardSearchStatus.error:
+                {
+                  return Center(child: Text(state.response));
+                }
+              case CardSearchStatus.loading:
+                {
+                  return const SpinKitFadingCircle(
+                    color: Colors.blue,
+                    size: 50.0,
+                  );
+                }
+              case CardSearchStatus.loaded:
+                {
+                  return SizedBox(
+                    height: size.height * 0.7,
+                    width: size.width,
+                    child: ListView.builder(
+                        addAutomaticKeepAlives: false,
+                        itemCount: state.data.length,
+                        itemBuilder: (context, int index) => Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: BlocBuilder<LogInBloc, LogInState>(
+                                buildWhen: (previous, current) {
+                                  return previous != current;
+                                },
+                                builder: (context, logState) {
+                                  return FadeWidget(
+                                    childWidget: CardDisplay(
+                                        card: state.data[index],
+                                        myUser: logState.myUser!),
+                                  );
+                                },
+                              ),
+                            )),
+                  );
+                }
+              default:
+                {
+                  return const Text("Hello",
+                      style: TextStyle(fontFamily: 'Roboto'));
+                }
             }
           }),
         ),

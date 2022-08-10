@@ -19,7 +19,7 @@ class _HomePageviewState extends State<HomePageview> {
   final List<Widget> _widgetOptions = [
     CardsBuyViews(),
     SearchWiew(),
-    const FavoriteWidget(),
+    const FavoriteWiew(),
     ShoppingView(),
     //SettingsView(),
   ];

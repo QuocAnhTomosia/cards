@@ -8,25 +8,25 @@ part 'user_sign_up_event.dart';
 part 'user_sign_up_state.dart';
 
 class UserSignUpBloc extends Bloc<UserSignUpEvent, UserSignUpState> {
-  UserSignUpBloc() : super(UserSignUpInitial()) {
+  UserSignUpBloc() : super(UserSignUpState.init()) {
     on<UserSignUpEvent>((event, emit) {});
     on<UserSignUpStart>((event, emit) {
-      emit(UserSignUpInitial());
+      emit(UserSignUpState.init());
     });
     on<UserSignUpSubmit>((event, emit) async {
-      emit(const UserSignUpSubmitting());
+      
       try {
         String img =
             await FireStoreService().uploadImage(File(event.image.path));
         String status = await FireStoreService().addNewUser(
             event.name, event.email, event.password, img, event.phoneNumber);
         if (status == "Success") {
-          emit(const UserSignUpSubmitted());
+          emit(UserSignUpState.submit());
         } else {
-          emit(UserSignUpError(error: status));
+          emit(UserSignUpState.error(status));
         }
       } catch (e) {
-        emit(UserSignUpError(error: e.toString()));
+        emit(UserSignUpState.error( e.toString()));
       }
     });
   }

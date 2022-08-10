@@ -1,4 +1,5 @@
-import 'dart:developer';
+// ignore_for_file: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -20,14 +21,13 @@ class _AvatarPickerState extends State<AvatarPicker> {
   //imageError de xu ly error
 
   _getFromGallery() async {
-    log("press");
     if (Platform.isAndroid) {
       PermissionStatus permissions = await Permission.storage.request();
 
       if (permissions.isGranted) {
         final imagePicker =
             await ImagePicker().pickImage(source: ImageSource.gallery);
-        // ignore: use_build_context_synchronously, invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
+        // ignore: use_build_context_synchronously, 
         context.read<ImageCubit>().emit(File(imagePicker!.path));
         setState(() {
           imageFile = imagePicker;
@@ -41,19 +41,16 @@ class _AvatarPickerState extends State<AvatarPicker> {
       if (permissions.isGranted) {
         final imagePicker =
             await ImagePicker().pickImage(source: ImageSource.gallery);
-        // ignore: use_build_context_synchronously, invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
+        // ignore: use_build_context_synchronously
         context.read<ImageCubit>().emit(File(imagePicker!.path));
         setState(() {
           imageFile = imagePicker;
         });
       } else if (permissions.isLimited) {
-        log(permissions.toString());
       } else if (permissions.isDenied) {
-        log(permissions.toString());
       } else if (permissions.isPermanentlyDenied) {
-        log(permissions.toString());
+        openAppSettings();
       } else if (permissions.isRestricted) {
-        log(permissions.toString());
         openAppSettings();
       }
     }
