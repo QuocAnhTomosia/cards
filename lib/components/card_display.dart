@@ -49,6 +49,8 @@ class CardDisplay extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 10),
               child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      onPrimary: Colors.white, primary: Colors.white),
                   onPressed: () {
                     //add item va update cho bloc
                     if (myUser.orderList[card.id.toString()] == null) {
@@ -62,7 +64,7 @@ class CardDisplay extends StatelessWidget {
                         .read<ShoppingCartBloc>()
                         .add(ShoppingCartLoad(myUser.orderList));
                   },
-                  child: const Icon(Icons.shopping_basket)),
+                  child: const Icon(Icons.shopping_basket,color: Colors.black,)),
             ),
             FavoriteChange(
               id: card.id,

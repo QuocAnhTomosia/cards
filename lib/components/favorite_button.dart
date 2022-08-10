@@ -24,7 +24,7 @@ class _FavoriteChangeState extends State<FavoriteChange> {
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
-            primary: Colors.blue, onPrimary: Colors.white),
+            primary: Colors.white, onPrimary: Colors.blue),
         onPressed: () {
           setState(() {
             if (widget.myUser.favorites.contains(widget.id)) {

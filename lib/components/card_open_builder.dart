@@ -39,10 +39,13 @@ CardOpenBuilder({
                       ),
                       SizedBox(
                         width: size.width,
-                        child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.blueAccent)),
-                            child: Text("Description: ${card.desc}")),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.blueAccent)),
+                              child: Text("Description: ${card.desc}")),
+                        ),
                       ),
                       SizedBox(
                         child: Text("Price: ${card.cardPrices}"),

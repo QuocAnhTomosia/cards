@@ -12,17 +12,25 @@ class TextInputWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      textAlign: TextAlign.start,
-      enableInteractiveSelection: false,
-      obscureText: false,
-      decoration: InputDecoration(
-        enabledBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.cyan),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.grey,
+            ),
+            borderRadius: BorderRadius.circular(20)),
+        child: TextFormField(
+          controller: controller,
+          textAlign: TextAlign.start,
+          enableInteractiveSelection: false,
+          obscureText: false,
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.only(left: 4),
+            hintText: text,
+            border: InputBorder.none,
+          ),
         ),
-        hintText: text,
-        border: InputBorder.none,
       ),
     );
   }

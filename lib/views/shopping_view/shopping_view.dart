@@ -40,12 +40,15 @@ class ShoppingView extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            SizedBox(
-                              height: size.width * 0.4 * 1.4,
-                              width: size.width * 0.4,
-                              child: Image.network(
-                                state.cardsDetails.list[index].imageUrl,
-                                fit: BoxFit.fill,
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                height: size.width * 0.4 * 1.4,
+                                width: size.width * 0.4,
+                                child: Image.network(
+                                  state.cardsDetails.list[index].imageUrl,
+                                  fit: BoxFit.fill,
+                                ),
                               ),
                             ),
                             Column(
@@ -154,17 +157,23 @@ class ShoppingView extends StatelessWidget {
               ],
             );
           } else {
-            return const Center(
-              child: Text(
-                  "Nothing in your cart, please go search and add the card you want"),
+            return  Center(
+              child: SizedBox(
+                width: size.width*0.7,
+                child: const Text(
+                    "Nothing in your cart, please go search and add the card you want"),
+              ),
             );
           }
         } else {
           // cac state con lai
-          return const Center(
-            child: Text(
-                "Nothing in your cart, please go search and add the card you want"),
-          );
+          return Center(
+              child: SizedBox(
+                width: size.width*0.7,
+                child: const Text(
+                    "Nothing in your cart, please go search and add the card you want"),
+              ),
+            );
         }
       },
     );

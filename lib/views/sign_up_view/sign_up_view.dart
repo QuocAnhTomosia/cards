@@ -70,7 +70,9 @@ class SignUpView extends StatelessWidget {
                       phoneNumber: _phone.text,
                       image: File(context.read<ImageCubit>().state.path)));
                 }),
-                child: Center(child: Text(tr("submit"))),
+                child: Container(
+                    width: size.width * 0.15,
+                    child: Center(child: Text(tr("submit")))),
               ),
               listener: (context, state) {
                 if (state is UserSignUpSubmitted) {

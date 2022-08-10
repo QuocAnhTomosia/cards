@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yugi_oh_cards/components/constant.dart';
 
 class StartView extends StatelessWidget {
   const StartView({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class StartView extends StatelessWidget {
         },
         icon: const Icon(Icons.skip_next),
       ),
-      appBar: AppBar(title: const Text('Start App')),
+      appBar: AppBar(title: const Text('Start App'),flexibleSpace: Constant().decoration,),
       body: PageView(
         /// [PageView.scrollDirection] defaults to [Axis.horizontal].
         /// Use [Axis.vertical] to scroll vertically.

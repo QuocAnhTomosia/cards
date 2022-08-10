@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class _AvatarPickerState extends State<AvatarPicker> {
   //imageError de xu ly error
 
   _getFromGallery() async {
+    log("press");
     if (Platform.isAndroid) {
       PermissionStatus permissions = await Permission.storage.request();
 
@@ -45,8 +47,13 @@ class _AvatarPickerState extends State<AvatarPicker> {
           imageFile = imagePicker;
         });
       } else if (permissions.isLimited) {
-        openAppSettings();
+        log(permissions.toString());
+      } else if (permissions.isDenied) {
+        log(permissions.toString());
+      } else if (permissions.isPermanentlyDenied) {
+        log(permissions.toString());
       } else if (permissions.isRestricted) {
+        log(permissions.toString());
         openAppSettings();
       }
     }

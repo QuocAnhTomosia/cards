@@ -12,12 +12,17 @@ import 'package:yugi_oh_cards/cubit/unique_id_cubit.dart';
 import 'package:yugi_oh_cards/routes/route_names.dart';
 import 'bloc/cards_searching/cards_searching_bloc.dart';
 import 'bloc/home_bloc/bloc/home_bloc.dart';
+import 'firebase_options.dart';
 
 void main() async {
+ 
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  //FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await EasyLocalization.ensureInitialized();
-  await Firebase.initializeApp(); //
+   //
   runApp(
     EasyLocalization(
         path: 'assets/translations',
@@ -28,7 +33,7 @@ void main() async {
         ],
         child: const YugiOh()),
   );
-  FlutterNativeSplash.remove();
+ // FlutterNativeSplash.remove();
 }
 
 class YugiOh extends StatelessWidget {

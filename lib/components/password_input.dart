@@ -20,27 +20,35 @@ class _PassWordWidgetState extends State<PassWordWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: widget.passwordController,
-      textAlign: TextAlign.start,
-      enableInteractiveSelection: false,
-      obscureText: isVisible,
-      decoration: InputDecoration(
-          enabledBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.cyan),
-          ),
-          hintText: widget.hintText,
-          border: InputBorder.none,
-          suffixIcon: IconButton(
-            onPressed: () {
-              setState(() {
-                isVisible = !isVisible;
-              });
-            },
-            icon: isVisible
-                ? const Icon(Icons.visibility)
-                : const Icon(Icons.visibility_off),
-          )),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.grey,
+            ),
+            borderRadius: BorderRadius.circular(20)),
+        child: TextFormField(
+          controller: widget.passwordController,
+          textAlign: TextAlign.start,
+          enableInteractiveSelection: false,
+          obscureText: isVisible,
+          decoration: InputDecoration(
+              hintText: widget.hintText,
+              border: InputBorder.none,
+              suffixIcon: IconButton(
+                onPressed: () {
+                  setState(() {
+                    isVisible = !isVisible;
+                  });
+                },
+                icon: isVisible
+                    ? const Icon(Icons.visibility)
+                    : const Icon(Icons.visibility_off),
+              ) 
+              ),
+        ),
+      ),
     );
   }
 }
