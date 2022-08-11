@@ -16,13 +16,6 @@ class HomePageview extends StatefulWidget {
 class _HomePageviewState extends State<HomePageview> {
   int _selectedIndex = 0;
   bool isSwitched = false;
-  final List<Widget> _widgetOptions = [
-    CardsBuyViews(),
-    SearchWiew(),
-    const FavoriteWiew(),
-    ShoppingView(),
-    //SettingsView(),
-  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -90,7 +83,12 @@ class _HomePageviewState extends State<HomePageview> {
       ),
       body: IndexedStack(
         index: _selectedIndex,
-        children: _widgetOptions,
+        children: <Widget>[
+          CardsBuyViews(),
+          SearchWiew(),
+          const FavoriteWiew(),
+          ShoppingView(),
+        ],
       ),
     );
   }

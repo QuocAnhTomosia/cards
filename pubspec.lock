@@ -337,7 +337,7 @@ packages:
     source: hosted
     version: "2.1.8"
   image_picker_ios:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: image_picker_ios
       url: "https://pub.dartlang.org"
@@ -477,7 +477,7 @@ packages:
     source: hosted
     version: "10.0.0"
   permission_handler_apple:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: permission_handler_apple
       url: "https://pub.dartlang.org"

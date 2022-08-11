@@ -23,7 +23,6 @@ class _AvatarPickerState extends State<AvatarPicker> {
   _getFromGallery() async {
     if (Platform.isAndroid) {
       PermissionStatus permissions = await Permission.storage.request();
-
       if (permissions.isGranted) {
         final imagePicker =
             await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -46,11 +45,7 @@ class _AvatarPickerState extends State<AvatarPicker> {
         setState(() {
           imageFile = imagePicker;
         });
-      } else if (permissions.isLimited) {
-      } else if (permissions.isDenied) {
-      } else if (permissions.isPermanentlyDenied) {
-        openAppSettings();
-      } else if (permissions.isRestricted) {
+      } else {
         openAppSettings();
       }
     }
