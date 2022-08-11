@@ -66,7 +66,7 @@ class _AvatarPickerState extends State<AvatarPicker> {
               ? FileImage(
                   File(imageFile!.path),
                 ) as ImageProvider
-              : AssetImage(Constant().avatarImage),
+              : AssetImage(Constant.avatarImage),
         ),
         ElevatedButton(
             onPressed: _getFromGallery,

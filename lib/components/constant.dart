@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:yugi_oh_cards/models/user_model.dart';
 
 class Constant {
-  String avatarImage = "assets/images/avatar.png";
-  String baseUrl = "https://db.ygoprodeck.com/api/v7/cardinfo.php?";
-  BaseOptions baseOption = BaseOptions(
-    baseUrl: "https://db.ygoprodeck.com/api/v7/randomcard.php",
+  static String avatarImage = "assets/images/avatar.png";
+  static String baseUrl = "https://db.ygoprodeck.com/api/v7/cardinfo.php?";
+  static BaseOptions baseOption = BaseOptions(
+    baseUrl: "https://db.ygoprodeck.com/api/v7/cardinfo.php?",
     receiveTimeout: 10000, //
     connectTimeout: 10000,
     sendTimeout: 10000,
   );
-  MyUser errorUser = MyUser(
+  static MyUser errorUser = MyUser(
       name: "err",
       phoneNumber: "err",
       email: "err",
@@ -19,7 +19,7 @@ class Constant {
       password: "err",
       favorites: [],
       orderList: {});
-  Widget decoration = Container(
+  static Widget decoration = Container(
       decoration: const BoxDecoration(
     gradient: LinearGradient(
         colors: [
@@ -32,7 +32,7 @@ class Constant {
         tileMode: TileMode.clamp),
   ));
 
-  List<int> randomNumbers = [
+  static List<int> randomNumbers = [
     34541863,
     64163367,
     91231901,

@@ -16,8 +16,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       Random random = Random();
       List<int> randomList = [];
       for (int i = 0; i < 6; i++) {
-        randomList.add(Constant()
-            .randomNumbers[random.nextInt(Constant().randomNumbers.length)]);
+        randomList.add(Constant
+            .randomNumbers[random.nextInt(Constant.randomNumbers.length)]);
       }
       DataResponse data = await CardApi().fetchId(randomList, tr("lang"));
       if (data.list.isNotEmpty) {

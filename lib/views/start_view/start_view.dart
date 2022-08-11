@@ -17,7 +17,7 @@ class StartView extends StatelessWidget {
       ),
       appBar: AppBar(
         title: const Text('Start App'),
-        flexibleSpace: Constant().decoration,
+        flexibleSpace: Constant.decoration,
       ),
       body: PageView(
         /// [PageView.scrollDirection] defaults to [Axis.horizontal].

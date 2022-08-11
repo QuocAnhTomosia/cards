@@ -44,13 +44,13 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
         emit(LogInState(
             message: result,
             status: LogInStatus.error,
-            myUser: Constant().errorUser));
+            myUser: Constant.errorUser));
       }
     } catch (e) {
       emit(LogInState(
           message: e.toString(),
           status: LogInStatus.error,
-          myUser: Constant().errorUser));
+          myUser: Constant.errorUser));
     }
   }
 }

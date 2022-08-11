@@ -25,7 +25,7 @@ class SignUpView extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        flexibleSpace: Constant().decoration,
+        flexibleSpace: Constant.decoration,
         title: Text(tr("Sign up")),
         centerTitle: true,
         actions: [

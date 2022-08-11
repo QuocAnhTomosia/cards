@@ -10,7 +10,7 @@ class CardApi {
     List<YugiOhCard> cards = [];
     try {
       var options = BaseOptions(
-        baseUrl: Constant().baseUrl,
+        baseUrl: Constant.baseUrl,
         receiveTimeout: 10000, //
         connectTimeout: 10000,
         sendTimeout: 10000,
@@ -37,13 +37,7 @@ class CardApi {
     int randomNumber = random.nextInt(100);
     List<YugiOhCard> cards = [];
     try {
-      var options = BaseOptions(
-        baseUrl: "https://db.ygoprodeck.com/api/v7/cardinfo.php?",
-        receiveTimeout: 10000, //
-        connectTimeout: 10000,
-        sendTimeout: 10000,
-      );
-      final Response response = await Dio(options).get(
+      final Response response = await Dio(Constant.baseOption).get(
         "type=$type${language == "en" ? "" : "&language=$language"}"
         "&offset=$randomNumber"
         "&num=20",
@@ -60,11 +54,10 @@ class CardApi {
 
   Future<DataResponse> fetchData(String name, String language) async {
     List<YugiOhCard> cards = [];
-
     if (name == "") {
       try {
-        final Response response = await Dio(Constant().baseOption).get(
-          '',
+        final Response response = await Dio().get(
+          "https://db.ygoprodeck.com/api/v7/randomcard.php",
         );
         if (response.data != {}) {
           cards.add(YugiOhCard.fromJsonApi(response.data));
@@ -75,7 +68,7 @@ class CardApi {
       }
     } else {
       try {
-        final Response response = await Dio(Constant().baseOption).get(
+        final Response response = await Dio(Constant.baseOption).get(
           "fname=$name${language == "en" ? "" : "&language=$language"}",
         );
         if (response.data["data"] != []) {

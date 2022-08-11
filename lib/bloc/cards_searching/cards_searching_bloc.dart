@@ -6,6 +6,7 @@ import 'package:equatable/equatable.dart';
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 import 'package:yugi_oh_cards/bloc/cards_searching/cards_searching_state.dart';
+import 'package:yugi_oh_cards/models/data_response.dart';
 
 import 'package:yugi_oh_cards/services/cards_api_services.dart';
 
@@ -21,8 +22,10 @@ class CardsSearchingBloc
     });
 
     on<CardSearchingSubmit>((event, emit) async {
+      print(event.name);
       emit(CardsSearchingState.loading());
-      final data = await CardApi().fetchData(event.name, event.language);
+      final DataResponse data =
+          await CardApi().fetchData(event.name, event.language);
       if (data.list.isNotEmpty) {
         emit(CardsSearchingState.loaded(data.list));
       } else {

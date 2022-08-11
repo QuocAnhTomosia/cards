@@ -17,7 +17,7 @@ class LogInState extends Equatable {
       : this(
             message: "init",
             status: LogInStatus.init,
-            myUser: Constant().errorUser);
+            myUser: Constant.errorUser);
   LogInState copyWith({
     String? message,
     LogInStatus? logInStatus,
@@ -32,7 +32,7 @@ class LogInState extends Equatable {
       : this(
             message: mess,
             status: LogInStatus.error,
-            myUser: Constant().errorUser);
+            myUser: Constant.errorUser);
   const LogInState.success(String uid, MyUser myUser)
       : this(message: uid, myUser: myUser, status: LogInStatus.success);
 
