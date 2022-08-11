@@ -84,10 +84,10 @@ class _HomePageviewState extends State<HomePageview> {
       body: IndexedStack(
         index: _selectedIndex,
         children: <Widget>[
-          CardsBuyViews(),
+          const CardsBuyViews(),
           SearchWiew(),
           const FavoriteWiew(),
-          ShoppingView(),
+          const ShoppingView(),
         ],
       ),
     );
