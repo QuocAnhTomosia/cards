@@ -27,6 +27,7 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
     });
     on<LogInReset>(
       (event, emit) {
+        FirebaseAuthService().signOut();
         emit(const LogInState(message: "", status: LogInStatus.init));
       },
     );
@@ -48,7 +49,7 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
       }
     } catch (e) {
       emit(LogInState(
-          message: e.toString(),
+          message: "Please correct your email or password",
           status: LogInStatus.error,
           myUser: Constant.errorUser));
     }

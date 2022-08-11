@@ -71,6 +71,7 @@ class SignUpView extends StatelessWidget {
                       email: _emailController.text,
                       phoneNumber: _phone.text,
                       password: _password.text,
+                      reEnter: _reEnterPassword.text,
                       image: File(context.read<ImageCubit>().state.path)));
                 }),
                 child: SizedBox(

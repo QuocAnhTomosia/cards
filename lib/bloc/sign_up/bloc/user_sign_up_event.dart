@@ -19,12 +19,14 @@ class UserSignUpSubmit extends UserSignUpEvent {
   final String password;
   final File image;
   final String phoneNumber;
+  final String reEnter;
   const UserSignUpSubmit({
     required this.name,
     required this.email,
-    required this.phoneNumber,
     required this.password,
     required this.image,
+    required this.phoneNumber,
+    required this.reEnter,
   });
   @override
   List<Object> get props => [name, email, password, image, phoneNumber];

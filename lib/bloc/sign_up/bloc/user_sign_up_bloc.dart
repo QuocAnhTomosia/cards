@@ -14,6 +14,14 @@ class UserSignUpBloc extends Bloc<UserSignUpEvent, UserSignUpState> {
       emit(UserSignUpState.init());
     });
     on<UserSignUpSubmit>((event, emit) async {
+      if (event.reEnter != event.password) {
+        emit(UserSignUpState.error(
+            "your password and reEnter password are not the same"));
+        return;
+      }
+      if (event.password.length < 6) {
+        emit(UserSignUpState.error("your password it's too short"));
+      }
       try {
         String img =
             await FireStoreService().uploadImage(File(event.image.path));
