@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class TextInputWidget extends StatelessWidget {
   String text;
+  TextInputType type;
   TextEditingController controller;
   TextInputWidget({
     Key? key,
     required this.text,
+    required this.type,
     required this.controller,
   }) : super(key: key);
 
@@ -21,6 +23,7 @@ class TextInputWidget extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(20)),
         child: TextFormField(
+          keyboardType: type,
           controller: controller,
           textAlign: TextAlign.start,
           enableInteractiveSelection: false,

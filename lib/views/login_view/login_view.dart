@@ -33,6 +33,7 @@ class LoginView extends StatelessWidget {
         body: Column(
           children: <Widget>[
             TextInputWidget(
+              type: TextInputType.emailAddress,
               text: "Enter your email",
               controller: _emailController,
             ),
