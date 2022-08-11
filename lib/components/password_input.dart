@@ -29,7 +29,7 @@ class _PassWordWidgetState extends State<PassWordWidget> {
             borderRadius: BorderRadius.circular(20)),
         child: TextFormField(
           controller: widget.passwordController,
-         textAlignVertical: TextAlignVertical.center,
+          textAlignVertical: TextAlignVertical.center,
           enableInteractiveSelection: false,
           obscureText: isVisible,
           decoration: InputDecoration(

@@ -2,6 +2,8 @@ import 'package:animations/animations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yugi_oh_cards/bloc/home_bloc/bloc/home_bloc.dart';
+import 'package:yugi_oh_cards/bloc/home_bloc/bloc/home_event.dart';
 import 'package:yugi_oh_cards/bloc/log_in/bloc/log_in_bloc.dart';
 import 'package:yugi_oh_cards/bloc/log_in/bloc/log_in_state.dart';
 
@@ -68,6 +70,7 @@ class SettingsView extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             context.setLocale(const Locale("en"));
+                            context.read<HomeBloc>().add(const HomeSubmit());
                             // context.read<LangCubitCubit>().updateEn();
                           },
                           child: SizedBox(
@@ -88,6 +91,7 @@ class SettingsView extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: () {
+                            context.read<HomeBloc>().add(const HomeSubmit());
                             context.setLocale(const Locale("fr"));
                             // context.read<LangCubitCubit>().updateVi();
                           },

@@ -45,7 +45,7 @@ class LoginView extends StatelessWidget {
                 Navigator.of(context).pushNamed('/sign_up');
               },
               child: const SizedBox(
-                  width: 60, child: Center(child: Text("Sign up"))),
+                  width: 80, child: Center(child: Text("Sign up"))),
             ),
             BlocListener<LogInBloc, LogInState>(
               listener: (context, state) {
@@ -85,7 +85,7 @@ class LoginView extends StatelessWidget {
                         password: _passwordController.text));
                   },
                   child: SizedBox(
-                      width: 60, child: Center(child: Text(tr("submit"))))),
+                      width: 80, child: Center(child: Text(tr("submit"))))),
             ),
           ],
         ));

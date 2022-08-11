@@ -20,7 +20,9 @@ class CardsBuyViews extends StatelessWidget {
       switch (state.statusCode) {
         case StatusCode.error:
           {
-            return Center(child: Text(state.data!.error));
+            return Center(
+                child:
+                    Text("Xin lỗi, chức năng tìm kiếm chưa hỗ trợ tiếng Việt"));
           }
         case StatusCode.loaded:
           {
