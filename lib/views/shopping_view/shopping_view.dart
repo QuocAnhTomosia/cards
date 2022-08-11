@@ -137,7 +137,9 @@ class ShoppingView extends StatelessWidget {
                   child: SizedBox(
                     width: size.width * 0.7,
                     child: const Text(
-                        "Nothing in your cart, please go search and add the card you want"),
+                      "Nothing in your cart, please go search and add the card you want",
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 );
               }
@@ -149,7 +151,9 @@ class ShoppingView extends StatelessWidget {
                 child: SizedBox(
                   width: size.width * 0.7,
                   child: const Text(
-                      "Nothing in your cart, please go search and add the card you want"),
+                    "Nothing in your cart, please go search and add the card you want",
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               );
             }
