@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:bloc/bloc.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:yugi_oh_cards/components/constant.dart';
 import 'package:yugi_oh_cards/models/data_response.dart';
 import 'package:yugi_oh_cards/services/cards_api_services.dart';
@@ -19,7 +18,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         randomList.add(Constant
             .randomNumbers[random.nextInt(Constant.randomNumbers.length)]);
       }
-      DataResponse data = await CardApi().fetchId(randomList, tr("lang"));
+
+      DataResponse data = await CardApi().fetchId(randomList, event.language);
       if (data.list.isNotEmpty) {
         emit(HomeState.loaded(data));
       } else {

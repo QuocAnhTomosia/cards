@@ -50,7 +50,9 @@ class LoginView extends StatelessWidget {
             BlocListener<LogInBloc, LogInState>(
               listener: (context, state) {
                 if (state.status == LogInStatus.success) {
-                  context.read<HomeBloc>().add(const HomeSubmit());
+                  context
+                      .read<HomeBloc>()
+                      .add(HomeSubmit(language: tr("lang")));
                   context
                       .read<FavoritesBloc>()
                       .add(FavoritesLoad(ids: state.myUser!.favorites));

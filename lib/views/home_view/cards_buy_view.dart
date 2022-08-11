@@ -14,40 +14,40 @@ class CardsBuyViews extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(buildWhen: (previous, current) {
-      return previous != current;
-    }, builder: ((context, state) {
-      switch (state.statusCode) {
-        case StatusCode.error:
-          {
-            return Center(
-                child:
-                    Text("Xin lỗi, chức năng tìm kiếm chưa hỗ trợ tiếng Việt"));
+    return BlocBuilder<HomeBloc, HomeState>(
+        buildWhen: (previous, current) => previous != current,
+        builder: ((context, state) {
+          switch (state.statusCode) {
+            case StatusCode.error:
+              {
+                return Center(
+                    child: Text(
+                        "Xin lỗi, chức năng tìm kiếm chưa hỗ trợ tiếng Việt"));
+              }
+            case StatusCode.loaded:
+              {
+                return BlocBuilder<LogInBloc, LogInState>(
+                    builder: (context, logInState) {
+                  return ListView.builder(
+                      itemCount: state.data!.list.length,
+                      itemBuilder: ((context, index) {
+                        return FadeWidget(
+                            childWidget: CardDisplay(
+                                card: state.data!.list[index],
+                                myUser: logInState.myUser!));
+                      }));
+                });
+              }
+            default:
+              {
+                return const Center(
+                  child: SpinKitFadingCircle(
+                    color: Colors.blue,
+                    size: 50.0,
+                  ),
+                );
+              }
           }
-        case StatusCode.loaded:
-          {
-            return BlocBuilder<LogInBloc, LogInState>(
-                builder: (context, logInState) {
-              return ListView.builder(
-                  itemCount: state.data!.list.length,
-                  itemBuilder: ((context, index) {
-                    return FadeWidget(
-                        childWidget: CardDisplay(
-                            card: state.data!.list[index],
-                            myUser: logInState.myUser!));
-                  }));
-            });
-          }
-        default:
-          {
-            return const Center(
-              child: SpinKitFadingCircle(
-                color: Colors.blue,
-                size: 50.0,
-              ),
-            );
-          }
-      }
-    }));
+        }));
   }
 }

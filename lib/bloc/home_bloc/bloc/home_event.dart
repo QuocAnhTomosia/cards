@@ -8,8 +8,9 @@ abstract class HomeEvent extends Equatable {
 }
 
 class HomeSubmit extends HomeEvent {
-  const HomeSubmit();
+  final String language;
+  const HomeSubmit({required this.language});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [language];
 }

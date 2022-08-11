@@ -50,8 +50,12 @@ class SettingsView extends StatelessWidget {
                     body: Column(
                       children: [
                         InkWell(
-                          onTap: () {
-                            context.setLocale(const Locale("vi"));
+                          onTap: () async {
+                            await context.setLocale(const Locale("vi"));
+                            // ignore: use_build_context_synchronously
+                            context
+                                .read<HomeBloc>()
+                                .add(const HomeSubmit(language: "vi"));
                           },
                           child: SizedBox(
                               height: size.height * 0.08,
@@ -70,8 +74,10 @@ class SettingsView extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             context.setLocale(const Locale("en"));
-                            context.read<HomeBloc>().add(const HomeSubmit());
-                            // context.read<LangCubitCubit>().updateEn();
+
+                            context
+                                .read<HomeBloc>()
+                                .add(const HomeSubmit(language: "en"));
                           },
                           child: SizedBox(
                               height: size.height * 0.08,
@@ -91,8 +97,10 @@ class SettingsView extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: () {
-                            context.read<HomeBloc>().add(const HomeSubmit());
                             context.setLocale(const Locale("fr"));
+                            context
+                                .read<HomeBloc>()
+                                .add(const HomeSubmit(language: "fr"));
                             // context.read<LangCubitCubit>().updateVi();
                           },
                           child: SizedBox(
