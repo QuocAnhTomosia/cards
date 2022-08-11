@@ -42,17 +42,17 @@ class SignUpView extends StatelessWidget {
             SizedBox(height: size.height * 0.05),
             const AvatarPicker(),
             TextInputWidget(
-              type:TextInputType.name,
+              type: TextInputType.name,
               text: "Enter your name",
               controller: _name,
             ),
             TextInputWidget(
-              type:TextInputType.emailAddress,
+              type: TextInputType.emailAddress,
               text: "Enter your email",
               controller: _emailController,
             ),
             TextInputWidget(
-              type:TextInputType.phone,
+              type: TextInputType.phone,
               text: "Enter your phoneNumber",
               controller: _phone,
             ),
