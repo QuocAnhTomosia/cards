@@ -63,20 +63,8 @@ class ShoppingView extends StatelessWidget {
                                       children: [
                                         IconButton(
                                             onPressed: () {
-                                              context
-                                                  .read<ShoppingCartBloc>()
-                                                  .add(ShoppingCartChangeItem(
-                                                      isAdd: true,
-                                                      orderList:
-                                                          state.orderList,
-                                                      itemId: state.cardsDetails
-                                                          .list[index].id,
-                                                      uid: context
-                                                          .read<LogInBloc>()
-                                                          .state
-                                                          .message!,
-                                                      cardsDetails:
-                                                          state.cardsDetails));
+                                              _onAddRemove(
+                                                  context, state, index, true);
                                             },
                                             icon: const Icon(Icons.add)),
                                         Text(state.orderList[state
@@ -85,20 +73,8 @@ class ShoppingView extends StatelessWidget {
                                             .toString()),
                                         IconButton(
                                             onPressed: () {
-                                              context
-                                                  .read<ShoppingCartBloc>()
-                                                  .add(ShoppingCartChangeItem(
-                                                      isAdd: false,
-                                                      orderList:
-                                                          state.orderList,
-                                                      itemId: state.cardsDetails
-                                                          .list[index].id,
-                                                      uid: context
-                                                          .read<LogInBloc>()
-                                                          .state
-                                                          .message!,
-                                                      cardsDetails:
-                                                          state.cardsDetails));
+                                              _onAddRemove(
+                                                  context, state, index, false);
                                             },
                                             icon: const Icon(Icons.remove)),
                                       ],
@@ -124,16 +100,7 @@ class ShoppingView extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
-                        context.read<ShoppingCartBloc>().add(ShoppingCartBuy(
-                              uid: context.read<LogInBloc>().state.message!,
-                            ));
-                        context.read<LogInBloc>().add(const LogInChangeInfo(
-                            field: "favorites", data: []));
-                        context.read<LogInBloc>().add(const LogInChangeInfo(
-                            field: "orderList", data: {}));
-                        context
-                            .read<FavoritesBloc>()
-                            .add(const FavoritesLoad(ids: []));
+                        _onBuy(context);
                       },
                       child: Container(
                         decoration: const BoxDecoration(
@@ -190,4 +157,27 @@ class ShoppingView extends StatelessWidget {
       },
     );
   }
+}
+
+_onAddRemove(
+    BuildContext context, ShoppingCartState state, int index, bool isAdd) {
+  context.read<ShoppingCartBloc>().add(ShoppingCartChangeItem(
+      isAdd: isAdd,
+      orderList: state.orderList,
+      itemId: state.cardsDetails.list[index].id,
+      uid: context.read<LogInBloc>().state.message!,
+      cardsDetails: state.cardsDetails));
+}
+
+_onBuy(BuildContext context) {
+  context.read<ShoppingCartBloc>().add(ShoppingCartBuy(
+        uid: context.read<LogInBloc>().state.message!,
+      ));
+  context
+      .read<LogInBloc>()
+      .add(const LogInChangeInfo(field: "favorites", data: []));
+  context
+      .read<LogInBloc>()
+      .add(const LogInChangeInfo(field: "orderList", data: {}));
+  context.read<FavoritesBloc>().add(const FavoritesLoad(ids: []));
 }
