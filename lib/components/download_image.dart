@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_downloader/image_downloader.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 // ignore: must_be_immutable
 class MyDiaLog extends StatelessWidget {
@@ -25,14 +28,21 @@ class MyDiaLog extends StatelessWidget {
         TextButton(
           onPressed: () async {
             // Saved with this method.
-            var imageId = await ImageDownloader.downloadImage(imgLink);
 
-            if (imageId == null) {
-              return;
+            Permission permissions = Platform.isAndroid == true
+                ? Permission.storage
+                : Permission.photos;
+            PermissionStatus permissionStatus = await permissions.request();
+            if (permissionStatus.isGranted) {
+              var imageId = await ImageDownloader.downloadImage(imgLink);
+              if (imageId == null) {
+                return;
+              } else if (permissionStatus.isPermanentlyDenied) {
+                openAppSettings();
+              }
+              // ignore: use_build_context_synchronously
+              Navigator.pop(context, 'Cancel');
             }
-
-            // ignore: use_build_context_synchronously
-            Navigator.pop(context, 'Cancel');
           },
           child: const Text('Download'),
         ),
